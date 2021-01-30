@@ -58,9 +58,9 @@ void DefaultIntakeCommand::Execute() {
   }else{
     // operator is overriding the mechanism
     if(Robot::oi.OperatorController->GetRawButton(OPERATOR_INTAKE_FEED_ROBOT_BUTTON)){
-      Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.5);
-    }else if(Robot::oi.OperatorController->GetRawButton(OPERATOR_INTAKE_REJECT_BUTTON)){
       Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.5);
+    }else if(Robot::oi.OperatorController->GetRawButton(OPERATOR_INTAKE_REJECT_BUTTON)){
+      Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.5);
     }else{
       Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
     }
