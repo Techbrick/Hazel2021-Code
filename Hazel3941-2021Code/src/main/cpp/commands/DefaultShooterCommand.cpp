@@ -22,7 +22,7 @@ void DefaultShooterCommand::Execute() {
   bool lowerlimstatus = !Robot::Shooter.lowerLim.Get();
 
   double angles[3];
-  Robot::Shooter.pigeon.GetRawGyro(angles);
+  Robot::Shooter.pigeon.GetAccumGyro(angles);
 
   frc::SmartDashboard::PutNumber("Pigeon X", angles[0]);
   frc::SmartDashboard::PutNumber("Pigeon Y", angles[1]);
