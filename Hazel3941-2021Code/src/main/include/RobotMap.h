@@ -64,11 +64,18 @@ static constexpr int ARM_PIGEON_ID              = 0;
 
 // Driver Controller Mappings
 
+static constexpr int DRIVE_SENSITIVITY_FACTOR = 3;
+static constexpr int STEERING_SENSITIVITY_FACTOR = 3;
+
 static constexpr int DRIVE_CONTROLLER_LEFT_JOYSTICK_X = 0;
-static constexpr int DRIVE_CONTROLLER_DRIVE_AXIS_X = DRIVE_CONTROLLER_LEFT_JOYSTICK_X;
+
+static constexpr int DRIVE_CONTROLLER_RIGHT_JOYSTICK_X = 4;
+static constexpr int DRIVE_CONTROLLER_DRIVE_AXIS_X = DRIVE_CONTROLLER_RIGHT_JOYSTICK_X;
 
 static constexpr int DRIVE_CONTROLLER_LEFT_JOYSTICK_Y = 1;
 static constexpr int DRIVE_CONTROLLER_DRIVE_AXIS_Y = DRIVE_CONTROLLER_LEFT_JOYSTICK_Y;
+
+
 
 static constexpr int DRIVE_CONTROLLER_LEFT_TRIGGER_Y = 2;
 static constexpr int DRIVE_SHIFT_AXIS = DRIVE_CONTROLLER_LEFT_TRIGGER_Y;
