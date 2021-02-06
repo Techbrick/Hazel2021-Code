@@ -22,11 +22,11 @@ void DefaultShooterCommand::Execute() {
   bool lowerlimstatus = !Robot::Shooter.lowerLim.Get();
 
   double angles[3];
-  Robot::Shooter.pigeon.GetAccumGyro(angles);
+  Robot::Shooter.pigeon.GetYawPitchRoll(angles);
 
-  frc::SmartDashboard::PutNumber("Pigeon X", angles[0]);
-  frc::SmartDashboard::PutNumber("Pigeon Y", angles[1]);
-  frc::SmartDashboard::PutNumber("Pigeon Z", angles[2]);
+  frc::SmartDashboard::PutNumber("Pigeon Yaw", angles[0]);
+  frc::SmartDashboard::PutNumber("Pigeon Pitch", angles[1]);
+  frc::SmartDashboard::PutNumber("Pigeon Roll", angles[2]);
 
   if(!Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
     if(Robot::Shooter.drivenManually == true){
