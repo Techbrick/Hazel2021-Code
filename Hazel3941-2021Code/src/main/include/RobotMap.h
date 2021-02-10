@@ -187,8 +187,9 @@ static constexpr int RETRACT_INTAKE_RIGHT = 2;
 
 
 
-// PID Defaults
+// Shooter Pigeon Constants
 
+static constexpr double SHOOTER_BOTTOM_LIMIT_ANGLE = -16.1;
+static constexpr double SHOOTER_TOP_LIMIT_ANGLE = 67.2;
 
-
-// PID Defaults </>
+// Shooter Pigeon Constants </>

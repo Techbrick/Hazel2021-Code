@@ -60,6 +60,16 @@ class DefaultShooterCommand : public frc::Command {
   void Interrupted() override;
 };
 
+class ZeroShooterPigeonCommand : public frc::Command {
+ public:
+  ZeroShooterPigeonCommand();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+};
+
 class DefaultClimberCommand : public frc::Command {
  public:
   DefaultClimberCommand();
