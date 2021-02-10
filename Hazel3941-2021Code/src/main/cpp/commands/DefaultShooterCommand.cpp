@@ -20,6 +20,14 @@ void DefaultShooterCommand::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void DefaultShooterCommand::Execute() {
   bool lowerlimstatus = !Robot::Shooter.lowerLim.Get();
+
+  double angles[3];
+  Robot::Shooter.pigeon.GetYawPitchRoll(angles);
+
+  frc::SmartDashboard::PutNumber("Pigeon Yaw", angles[0]);
+  frc::SmartDashboard::PutNumber("Pigeon Pitch", angles[1]);
+  frc::SmartDashboard::PutNumber("Pigeon Roll", angles[2]);
+
   if(!Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
     if(Robot::Shooter.drivenManually == true){
       Robot::Shooter.drivenManually = false;
@@ -62,7 +70,9 @@ void DefaultShooterCommand::Execute() {
           inputspeed = (Robot::oi.OperatorController->GetRawAxis(OPERATOR_SHOOTER_SPEED_AXIS_ID) + 1) / 2;
         } else {
           // shift value higher, remap to 0-1
+          
           inputspeed = (-Robot::oi.OperatorController->GetRawAxis(OPERATOR_SHOOTER_SPEED_AXIS_ID) + 1) / 2;
+          frc::SmartDashboard::PutNumber("shooter power", inputspeed);
         }
         Robot::Shooter.shooterController.Set(motorcontrol::ControlMode::PercentOutput, -inputspeed);
       } else {
