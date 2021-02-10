@@ -93,6 +93,8 @@ void Robot::TeleopInit() {
   for(int i = 0; i < 6; i++){
     Indexer.lastStates[i] = true;
   }
+  ZeroShooterPigeonCommand zeroPigeonShooterCommand = ZeroShooterPigeonCommand();
+  zeroPigeonShooterCommand.Start();
 }
 
 void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
