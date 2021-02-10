@@ -100,6 +100,7 @@ class ShooterSubsystem : public frc::Subsystem {
     TalonSRX shooterController;
     TalonSRX shooterFollower;
     PigeonIMU pigeon;
+    bool isShooterZeroed = false;
     //frc::DigitalInput upperLim{DIO_UPPER_LIM};
     frc::DigitalInput lowerLim{DIO_LOWER_LIM};
     bool drivenManually = false;
