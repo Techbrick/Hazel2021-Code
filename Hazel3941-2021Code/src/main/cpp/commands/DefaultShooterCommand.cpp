@@ -70,7 +70,9 @@ void DefaultShooterCommand::Execute() {
           inputspeed = (Robot::oi.OperatorController->GetRawAxis(OPERATOR_SHOOTER_SPEED_AXIS_ID) + 1) / 2;
         } else {
           // shift value higher, remap to 0-1
+          
           inputspeed = (-Robot::oi.OperatorController->GetRawAxis(OPERATOR_SHOOTER_SPEED_AXIS_ID) + 1) / 2;
+          frc::SmartDashboard::PutNumber("shooter power", inputspeed);
         }
         Robot::Shooter.shooterController.Set(motorcontrol::ControlMode::PercentOutput, -inputspeed);
       } else {
