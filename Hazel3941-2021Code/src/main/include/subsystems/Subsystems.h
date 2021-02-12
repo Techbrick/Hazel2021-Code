@@ -43,9 +43,9 @@ class DriveSubsystem : public frc::Subsystem {
     DriveSubsystem();
     void InitDefaultCommand() override;
     // Remove WPI_ for motion magic or something
-    WPI_TalonSRX RightController;
+    TalonFX RightController;
     WPI_VictorSPX RightFollower;
-    WPI_TalonSRX LeftController;
+    TalonFX LeftController;
     WPI_VictorSPX LeftFollower;
     frc::DifferentialDrive driveControl{LeftController, RightController};
     frc::DoubleSolenoid ShifterSolenoid {13, 0, 1};

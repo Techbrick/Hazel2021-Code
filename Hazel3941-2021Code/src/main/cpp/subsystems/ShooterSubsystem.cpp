@@ -34,6 +34,9 @@ pigeon(ARM_PIGEON_ID)
   shooterController.SetNeutralMode(Coast);
   
   shooterFollower.Follow(shooterController);
+
+  shooterController.ConfigSelectedFeedbackSensor(0);
+  shooterFollow.ConfigSelectedFeedbackSensor(0);
 }
 
 void ShooterSubsystem::InitDefaultCommand() {
