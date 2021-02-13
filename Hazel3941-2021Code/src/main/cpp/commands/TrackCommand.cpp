@@ -8,6 +8,7 @@
 #include "commands/Commands.h"
 
 #include "Robot.h"
+#include "PIDConstants.h"
 
 trackCommand::trackCommand() {
   // Use Requires() here to declare subsystem dependencies
@@ -30,14 +31,17 @@ void trackCommand::Execute() {
   ty = Robot::table->GetNumber("ty", 0.0);
   frc::SmartDashboard::PutNumber("txDebug", tx);
   frc::SmartDashboard::PutNumber("tyDebug", ty);
-  PC = frc::SmartDashboard::GetNumber("Track P", 0.0);
-  IC = frc::SmartDashboard::GetNumber("Track I", 0.0);
-  DC = frc::SmartDashboard::GetNumber("Track D", 0.0);
+  //PC = frc::SmartDashboard::GetNumber("Track P", 0.0);
+  //IC = frc::SmartDashboard::GetNumber("Track I", 0.0);
+  //DC = frc::SmartDashboard::GetNumber("Track D", 0.0);
+  PC = TRACK_HORIZONTAL_P;
+  IC = TRACK_HORIZONTAL_I;
+  DC = TRACK_HORIZONTAL_D;
   P = tx;
   I = .9 * tx + .1 * I;
   D = lastTx - tx;
   float PID = PC * P + IC * I +  DC * D;
-  Robot::Drive.driveControl.ArcadeDrive(DRIVE_CONTROLLER_DRIVE_AXIS_X, -PID);
+  Robot::Drive.driveControl.ArcadeDrive(0.0, -PID, false);
 }
 
 // Make this return true when this Command no longer needs to run execute()
