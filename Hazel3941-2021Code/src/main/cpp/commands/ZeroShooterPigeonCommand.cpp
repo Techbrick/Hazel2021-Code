@@ -22,8 +22,7 @@ void ZeroShooterPigeonCommand::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void ZeroShooterPigeonCommand::Execute() {
-  bool hasHitUpperLimit = Robot::Shooter.armMotor.IsFwdLimitSwitchClosed();
-
+  bool hasHitUpperLimit = Robot::Shooter.armMotor.IsRevLimitSwitchClosed();
   if (hasHitUpperLimit) {
     // If we hit the limit, stop..
     Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.0);
@@ -33,13 +32,13 @@ void ZeroShooterPigeonCommand::Execute() {
     Robot::Shooter.isShooterZeroed = true;
   }else{
     // ...otherwise keep going...
-    Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.2);
+    Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.2);
   }
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool ZeroShooterPigeonCommand::IsFinished() {
-  frc::SmartDashboard::PutBoolean("Is zeroing?", false);
+  frc::SmartDashboard::PutBoolean("Is zeroing?", Robot::Shooter.isShooterZeroed);
   return Robot::Shooter.isShooterZeroed;
 }
 
