@@ -16,19 +16,20 @@ ZeroShooterPigeonCommand::ZeroShooterPigeonCommand() {
 
 // Called just before this Command runs the first time
 void ZeroShooterPigeonCommand::Initialize() {
+  frc::SmartDashboard::PutBoolean("Is zeroing?", true);
   Robot::Shooter.isShooterZeroed = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void ZeroShooterPigeonCommand::Execute() {
-  bool hasHitLowerLimit = Robot::Shooter.lowerLim.Get();
+  bool hasHitUpperLimit = Robot::Shooter.armMotor.IsFwdLimitSwitchClosed();
 
-  if (hasHitLowerLimit) {
+  if (hasHitUpperLimit) {
     // If we hit the limit, stop..
     Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.0);
 
     // ...and zero...
-    Robot::Shooter.pigeon.SetYaw(SHOOTER_BOTTOM_LIMIT_ANGLE);
+    Robot::Shooter.pigeon.SetYaw(SHOOTER_TOP_LIMIT_ANGLE);
     Robot::Shooter.isShooterZeroed = true;
   }else{
     // ...otherwise keep going...
@@ -37,7 +38,10 @@ void ZeroShooterPigeonCommand::Execute() {
 }
 
 // Make this return true when this Command no longer needs to run execute()
-bool ZeroShooterPigeonCommand::IsFinished() { return Robot::Shooter.isShooterZeroed; }
+bool ZeroShooterPigeonCommand::IsFinished() {
+  frc::SmartDashboard::PutBoolean("Is zeroing?", false);
+  return Robot::Shooter.isShooterZeroed;
+}
 
 // Called once after isFinished returns true
 void ZeroShooterPigeonCommand::End() {}
