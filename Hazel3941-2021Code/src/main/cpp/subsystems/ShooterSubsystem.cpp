@@ -3,8 +3,8 @@
 
 ShooterSubsystem::ShooterSubsystem() : frc::Subsystem("ShooterSubsystem"),
 armMotor(ARM_ID),
-shooterController(SHOOTER_A_ID),
-shooterFollower(SHOOTER_B_ID),
+left(SHOOTER_A_ID),
+right(SHOOTER_B_ID),
 pigeon(ARM_PIGEON_ID)
 {
   armMotor.ConfigFactoryDefault();
@@ -25,18 +25,18 @@ pigeon(ARM_PIGEON_ID)
 					LimitSwitchSource::LimitSwitchSource_FeedbackConnector,
 					LimitSwitchNormal::LimitSwitchNormal_NormallyClosed);
   */
-  shooterFollower.ConfigFactoryDefault();
-  shooterFollower.SetInverted(false);
-  shooterFollower.SetNeutralMode(Coast);
+  left.ConfigFactoryDefault();
+  left.SetInverted(false);
+  left.SetNeutralMode(Coast);
 
-  shooterController.ConfigFactoryDefault();
-  shooterController.SetInverted(true);
-  shooterController.SetNeutralMode(Coast);
+  right.ConfigFactoryDefault();
+  right.SetInverted(true);
+  right.SetNeutralMode(Coast);
   
-  shooterFollower.Follow(shooterController);
+  // shooterFollower.Follow(shooterController);
 
-  shooterController.ConfigSelectedFeedbackSensor(0);
-  shooterFollow.ConfigSelectedFeedbackSensor(0);
+  left.ConfigSelectedFeedbackSensor(0);
+  right.ConfigSelectedFeedbackSensor(0);
 }
 
 void ShooterSubsystem::InitDefaultCommand() {

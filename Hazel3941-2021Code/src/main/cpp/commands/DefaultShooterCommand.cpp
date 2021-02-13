@@ -32,7 +32,7 @@ void DefaultShooterCommand::Execute() {
     if(Robot::Shooter.drivenManually == true){
       Robot::Shooter.drivenManually = false;
       Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
-      Robot::Shooter.shooterController.Set(motorcontrol::ControlMode::PercentOutput,0);
+      Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput,0);
     }
     if(/*!Robot::Shooter.lowerLim.Get() && */Robot::oi.DriverController->GetRawButton(DRIVE_CONTROLLER_ROLL_SHOOTER_BACKWARD)){
       Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.2);
@@ -42,9 +42,9 @@ void DefaultShooterCommand::Execute() {
       Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
     }
     if(Robot::oi.DriverController->GetRawButton(DRIVE_ARM_BUTTON)){
-      Robot::Shooter.shooterController.Set(motorcontrol::ControlMode::PercentOutput, 1.0);
+      Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, 1.0);
     }else{
-      Robot::Shooter.shooterController.Set(motorcontrol::ControlMode::PercentOutput, 0.0);
+      Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, 0.0);
     }
     
   } else {
@@ -74,9 +74,9 @@ void DefaultShooterCommand::Execute() {
           inputspeed = (-Robot::oi.OperatorController->GetRawAxis(OPERATOR_SHOOTER_SPEED_AXIS_ID) + 1) / 2;
           frc::SmartDashboard::PutNumber("shooter power", inputspeed);
         }
-        Robot::Shooter.shooterController.Set(motorcontrol::ControlMode::PercentOutput, -inputspeed);
+        Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, -inputspeed);
       } else {
-        Robot::Shooter.shooterController.Set(motorcontrol::ControlMode::PercentOutput, 0);
+        Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, 0);
       }
   }
 }

@@ -43,9 +43,9 @@ class DriveSubsystem : public frc::Subsystem {
     DriveSubsystem();
     void InitDefaultCommand() override;
     // Remove WPI_ for motion magic or something
-    TalonFX RightController;
+    WPI_TalonSRX RightController;
     WPI_VictorSPX RightFollower;
-    TalonFX LeftController;
+    WPI_TalonSRX LeftController;
     WPI_VictorSPX LeftFollower;
     frc::DifferentialDrive driveControl{LeftController, RightController};
     frc::DoubleSolenoid ShifterSolenoid {13, 0, 1};
@@ -97,8 +97,8 @@ class ShooterSubsystem : public frc::Subsystem {
     ShooterSubsystem();
     void InitDefaultCommand() override;
     TalonSRX armMotor;
-    TalonSRX shooterController;
-    TalonSRX shooterFollower;
+    TalonFX left;
+    TalonFX right;
     PigeonIMU pigeon;
     bool isShooterZeroed = false;
     //frc::DigitalInput upperLim{DIO_UPPER_LIM};
