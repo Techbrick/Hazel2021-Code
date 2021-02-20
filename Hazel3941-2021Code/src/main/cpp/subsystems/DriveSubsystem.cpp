@@ -18,6 +18,9 @@ driveControl(LeftController, RightController)*/
     LeftController.ClearStickyFaults();
     LeftController.SetNeutralMode(Brake);
 
+    LeftController.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::QuadEncoder, 0, 10);
+    
+
     LeftFollower.ConfigFactoryDefault();
     LeftFollower.ClearStickyFaults();
     LeftFollower.SetNeutralMode(Brake);

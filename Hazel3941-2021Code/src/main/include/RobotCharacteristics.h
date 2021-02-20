@@ -1,9 +1,13 @@
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 
+#include <wpi/math>
+
 #include <units/length.h>
 #include <units/voltage.h>
 #include <units/time.h>
 #include <units/acceleration.h>
+
+#pragma once
 
 constexpr auto ks = 1.6_V;
 constexpr auto kv = 3.17 * 1_V * 1_s / 1_m;
@@ -19,3 +23,6 @@ constexpr auto kMaxAcceleration = 2.92_mps_sq;
 
 constexpr double kRamseteB = 2;
 constexpr double kRamseteZeta = 0.7;
+
+// Multiply raw sensor units by this to get distance traveled:
+constexpr double kEncoderDistancePerPulse = (0.15 * wpi::math.pi) / 4096.0;
