@@ -27,17 +27,6 @@ class ExampleSubsystem : public frc::Subsystem {
   // for methods that implement subsystem capabilities
 };
 
-class ClimberSubsystem : public frc::Subsystem {
-  public:
-    ClimberSubsystem();
-    TalonSRX climber;
-    TalonSRX lift;
-    void InitDefaultCommand() override;
-
-  private:
-
-};
-
 class DriveSubsystem : public frc::Subsystem {
   public:
     DriveSubsystem();
