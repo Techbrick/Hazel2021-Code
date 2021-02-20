@@ -24,9 +24,9 @@ void DefaultShooterCommand::Execute() {
   double angles[3];
   Robot::Shooter.pigeon.GetYawPitchRoll(angles);
 
-  frc::SmartDashboard::PutNumber("Pigeon Yaw", angles[0]);
+  //frc::SmartDashboard::PutNumber("Pigeon Yaw", angles[0]);
   frc::SmartDashboard::PutNumber("Pigeon Pitch", angles[1]);
-  frc::SmartDashboard::PutNumber("Pigeon Roll", angles[2]);
+  //frc::SmartDashboard::PutNumber("Pigeon Roll", angles[2]);
 
   if(!Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
     if(Robot::Shooter.drivenManually == true){
@@ -43,8 +43,10 @@ void DefaultShooterCommand::Execute() {
     }
     if(Robot::oi.DriverController->GetRawButton(DRIVE_ARM_BUTTON)){
       Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, 1.0);
+      Robot::Shooter.right.Set(motorcontrol::ControlMode::PercentOutput, 1.0);
     }else{
       Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, 0.0);
+      Robot::Shooter.right.Set(motorcontrol::ControlMode::PercentOutput, 0.0);
     }
     
   } else {
@@ -72,11 +74,18 @@ void DefaultShooterCommand::Execute() {
           // shift value higher, remap to 0-1
           
           inputspeed = (-Robot::oi.OperatorController->GetRawAxis(OPERATOR_SHOOTER_SPEED_AXIS_ID) + 1) / 2;
-          frc::SmartDashboard::PutNumber("shooter power", inputspeed);
         }
-        Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, -inputspeed);
+        double maxRPM = 2000;
+        double minRPM = 1200;
+        double rpm = minRPM + (maxRPM - minRPM) * abs(inputspeed);
+        rpm = rpm * 3 * 2048 / 600;
+        Robot::Shooter.left.Set(motorcontrol::ControlMode::Velocity, rpm);
+        Robot::Shooter.right.Set(motorcontrol::ControlMode::Velocity, rpm);
+        //Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, -inputspeed);
+        frc::SmartDashboard::PutNumber("shooter power", rpm);
       } else {
         Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, 0);
+        Robot::Shooter.right.Set(motorcontrol::ControlMode::PercentOutput, 0);
       }
   }
 }
