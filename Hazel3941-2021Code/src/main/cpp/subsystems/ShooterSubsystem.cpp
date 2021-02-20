@@ -34,6 +34,7 @@ pigeon(ARM_PIGEON_ID)
   shooterController.SetNeutralMode(Coast);
   
   shooterFollower.Follow(shooterController);
+
 }
 
 void ShooterSubsystem::InitDefaultCommand() {
