@@ -19,7 +19,6 @@ driveControl(LeftController, RightController)*/
     LeftController.SetNeutralMode(Brake);
 
     LeftController.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::QuadEncoder, 0, 10);
-    
 
     LeftFollower.ConfigFactoryDefault();
     LeftFollower.ClearStickyFaults();
@@ -29,6 +28,8 @@ driveControl(LeftController, RightController)*/
     RightController.ConfigFactoryDefault();
     RightController.ClearStickyFaults();
     RightController.SetNeutralMode(Brake);
+
+    RightController.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::QuadEncoder, 0, 10);
 
     RightFollower.ConfigFactoryDefault();
     RightFollower.ClearStickyFaults();
@@ -40,4 +41,6 @@ void DriveSubsystem::InitDefaultCommand() {
     SetDefaultCommand(new DefaultDriveCommand());
 }
 
-
+void DriveSubsystem::Periodic() {
+    
+}

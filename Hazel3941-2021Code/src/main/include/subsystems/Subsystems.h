@@ -11,6 +11,7 @@
 #include "commands/Commands.h"
 #include "ctre/Phoenix.h"
 #include "frc/drive/DifferentialDrive.h"
+#include "frc/kinematics/DifferentialDriveOdometry.h"
 #include "frc/DigitalInput.h"
 #include "frc/Compressor.h"
 #include "frc/DoubleSolenoid.h"
@@ -42,6 +43,7 @@ class DriveSubsystem : public frc::Subsystem {
   public:
     DriveSubsystem();
     void InitDefaultCommand() override;
+    void Periodic() override;
     // Remove WPI_ for motion magic or something
     WPI_TalonSRX RightController;
     WPI_VictorSPX RightFollower;
@@ -50,6 +52,7 @@ class DriveSubsystem : public frc::Subsystem {
     frc::DifferentialDrive driveControl{LeftController, RightController};
     frc::DoubleSolenoid ShifterSolenoid {13, 0, 1};
     
+    frc::DifferentialDriveOdometry odometry;
   private:
 
 };
