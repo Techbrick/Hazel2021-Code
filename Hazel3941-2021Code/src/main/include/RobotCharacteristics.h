@@ -1,6 +1,7 @@
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 
 #include <wpi/math>
+#include <cmath>
 
 #include <units/length.h>
 #include <units/voltage.h>
@@ -25,4 +26,4 @@ constexpr double kRamseteB = 2;
 constexpr double kRamseteZeta = 0.7;
 
 // Multiply raw sensor units by this to get distance traveled:
-constexpr double kEncoderDistancePerPulse = (0.15 * wpi::math.pi) / 4096.0;
+constexpr double kEncoderDistancePerPulse = (0.15 * M_PI) / 4096.0;

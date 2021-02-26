@@ -12,6 +12,7 @@
 #include "ctre/Phoenix.h"
 #include "frc/drive/DifferentialDrive.h"
 #include "frc/kinematics/DifferentialDriveOdometry.h"
+#include "frc/geometry/Rotation2d.h"
 #include "frc/DigitalInput.h"
 #include "frc/Compressor.h"
 #include "frc/DoubleSolenoid.h"
