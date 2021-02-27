@@ -10,8 +10,10 @@
 #include <frc/TimedRobot.h>
 #include <frc/commands/Command.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <frc/SPI.h>
 
 #include "OI.h"
+#include "AHRS.h"
 #include "commands/Commands.h"
 #include "commands/AutoCommands.h"
 #include "subsystems/Subsystems.h"
@@ -24,6 +26,7 @@ class Robot : public frc::TimedRobot {
   static IntakeSubsystem Intake;
   static ShooterSubsystem Shooter;
   static OI oi;
+  static AHRS *navx;
   static frc::Compressor robotCompressor;
   static std::shared_ptr<NetworkTable> table;
 

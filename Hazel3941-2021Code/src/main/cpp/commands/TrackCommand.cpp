@@ -14,34 +14,38 @@ trackCommand::trackCommand() {
   // Use Requires() here to declare subsystem dependencies
   //Requires(&Robot::Indexer);
   Requires(&Robot::Drive);
-  //Requires(&Robot::Shooter);
+  Requires(&Robot::Shooter);
 }
 
 // Called just before this Command runs the first time
 void trackCommand::Initialize() {
-  frc::SmartDashboard::PutNumber("Track P", PC);
-  frc::SmartDashboard::PutNumber("Track I", IC);
-  frc::SmartDashboard::PutNumber("Track D", DC);
+  //frc::SmartDashboard::PutNumber("Track P", PC);
+  //frc::SmartDashboard::PutNumber("Track I", IC);
+  //frc::SmartDashboard::PutNumber("Track D", DC);
 }
 
 // Called repeatedly when this Command is scheduled to run
 void trackCommand::Execute() {
+  
   float lastTx = tx;
   tx = Robot::table->GetNumber("tx", 0.0);
-  ty = Robot::table->GetNumber("ty", 0.0);
-  frc::SmartDashboard::PutNumber("txDebug", tx);
-  frc::SmartDashboard::PutNumber("tyDebug", ty);
+
+  //frc::SmartDashboard::PutNumber("txDebug", tx);
+  //frc::SmartDashboard::PutNumber("tyDebug", ty);
   //PC = frc::SmartDashboard::GetNumber("Track P", 0.0);
   //IC = frc::SmartDashboard::GetNumber("Track I", 0.0);
   //DC = frc::SmartDashboard::GetNumber("Track D", 0.0);
-  PC = TRACK_HORIZONTAL_P;
-  IC = TRACK_HORIZONTAL_I;
-  DC = TRACK_HORIZONTAL_D;
-  P = tx;
-  I = .9 * tx + .1 * I;
-  D = lastTx - tx;
-  float PID = PC * P + IC * I +  DC * D;
-  Robot::Drive.driveControl.ArcadeDrive(0.0, -PID, false);
+  
+  rP = tx;
+  rI = .9 * tx + .1 * rI;
+  rD = lastTx - tx;
+  float rPID = TRACK_HORIZONTAL_P * rP + TRACK_HORIZONTAL_I * rI + TRACK_HORIZONTAL_D * rD;
+  Robot::Drive.driveControl.ArcadeDrive(DRIVE_CONTROLLER_DRIVE_AXIS_X, -rPID);
+
+  ty = Robot::table->GetNumber("ty", 0.0);
+  
+  Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::Position, 0);
+
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -28,7 +28,10 @@ void DefaultShooterCommand::Execute() {
   frc::SmartDashboard::PutNumber("Pigeon Pitch", angles[1]);
   //frc::SmartDashboard::PutNumber("Pigeon Roll", angles[2]);
 
-  if(!Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
+  bool axis_locked = Robot::oi.OperatorController->GetRawButton(OPERATOR_LOCKED_AXIS_OVERRIDE);
+  bool operator_override = Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON) || axis_locked;
+
+  if(!operator_override){
     if(Robot::Shooter.drivenManually == true){
       Robot::Shooter.drivenManually = false;
       Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
@@ -52,16 +55,19 @@ void DefaultShooterCommand::Execute() {
   } else {
     // operator is taking control manually
     Robot::Shooter.drivenManually = true;
-
-    double armmove = Robot::oi.OperatorController->GetRawAxis(OPERATOR_JOYSTICK_FORWARDREVERSE_AXIS_ID);
-    if(OPERATOR_JOYSTICK_FORWARDREVERSE_FLIP){
-      armmove = -armmove;
-    }
-    if(lowerlimstatus && armmove > 0){
-      Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, armmove);
-    } else if( armmove < 0){
-      Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, armmove);
-    } else {
+    if(!axis_locked){
+      double armmove = Robot::oi.OperatorController->GetRawAxis(OPERATOR_JOYSTICK_FORWARDREVERSE_AXIS_ID);
+      if(OPERATOR_JOYSTICK_FORWARDREVERSE_FLIP){
+        armmove = -armmove;
+      }
+      if(lowerlimstatus && armmove > 0){
+        Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, armmove);
+      } else if( armmove < 0){
+        Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, armmove);
+      } else {
+        Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
+      }
+    }else{
       Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
     }
     

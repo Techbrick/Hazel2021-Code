@@ -79,10 +79,16 @@ class trackCommand : public frc::Command {
   void End() override;
   void Interrupted() override;
   float tx, ty;
-  float P;
-  float I;
-  float D;
-  float PC = 0.1;
-  float IC = 0.01;
-  float DC = 0.05;
+  float rP = 0;
+  float rI = 0;
+  float rD = 0;
+  float rPC = 0.1;
+  float rIC = 0.01;
+  float rDC = 0.05;
+  
+  float tx, ty;
+  float rP = 0;
+  float rI = 0;
+  float rD = 0;
+  
 };
