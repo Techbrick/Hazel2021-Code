@@ -37,7 +37,3 @@ void DriveSubsystem::InitDefaultCommand() {
     SetDefaultCommand(new DefaultDriveCommand());
 }
 
-void DriveSubsystem::Periodic() {
-    
-}
-

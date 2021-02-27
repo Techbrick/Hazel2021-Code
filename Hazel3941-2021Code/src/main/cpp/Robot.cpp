@@ -20,7 +20,6 @@ OI Robot::oi;
 std::shared_ptr<NetworkTable> Robot::table;
 
 void Robot::RobotInit() {
-  navx = new AHRS(frc::SPI::kMXP);
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
   m_chooser.AddOption("Base Auto", &BaseAuto);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);

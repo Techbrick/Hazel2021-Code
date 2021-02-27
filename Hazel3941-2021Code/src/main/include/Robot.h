@@ -26,7 +26,6 @@ class Robot : public frc::TimedRobot {
   static IntakeSubsystem Intake;
   static ShooterSubsystem Shooter;
   static OI oi;
-  static AHRS *navx;
   static frc::Compressor robotCompressor;
   static std::shared_ptr<NetworkTable> table;
 
