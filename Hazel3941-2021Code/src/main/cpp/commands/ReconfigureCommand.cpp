@@ -30,15 +30,16 @@ void ReconfigureCommand::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void ReconfigureCommand::Execute() {
     // Update globals from shuffleboard
-    ARM_ANGLE_P = frc::SmartDashboard::GetNumber("VTrackP", ARM_ANGLE_P);
-    ARM_ANGLE_I = frc::SmartDashboard::GetNumber("VTrackI", ARM_ANGLE_I);
-    ARM_ANGLE_D = frc::SmartDashboard::GetNumber("VTrackD", ARM_ANGLE_D);
-    ARM_ANGLE_F = frc::SmartDashboard::GetNumber("VTrackF", ARM_ANGLE_F);
+    //ARM_ANGLE_P = frc::SmartDashboard::GetNumber("VTrackP", ARM_ANGLE_P);
+    //ARM_ANGLE_I = frc::SmartDashboard::GetNumber("VTrackI", ARM_ANGLE_I);
+    //ARM_ANGLE_D = frc::SmartDashboard::GetNumber("VTrackD", ARM_ANGLE_D);
+    //ARM_ANGLE_F = frc::SmartDashboard::GetNumber("VTrackF", ARM_ANGLE_F);
+    //TARGETTILTANGLE = frc::SmartDashboard::GetEntry("TgtAngle").GetDouble(3.1415);
     
-    Robot::Shooter.armMotor.Config_kF(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_F, kTimeoutMs);
-    Robot::Shooter.armMotor.Config_kP(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_P, kTimeoutMs);
-    Robot::Shooter.armMotor.Config_kI(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_I, kTimeoutMs);
-    Robot::Shooter.armMotor.Config_kD(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_D, kTimeoutMs);
+    //Robot::Shooter.armMotor.Config_kF(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_F, kTimeoutMs);
+    //Robot::Shooter.armMotor.Config_kP(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_P, kTimeoutMs);
+    //Robot::Shooter.armMotor.Config_kI(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_I, kTimeoutMs);
+    //Robot::Shooter.armMotor.Config_kD(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_D, kTimeoutMs);
 }
 
 // Make this return true when this Command no longer needs to run execute()

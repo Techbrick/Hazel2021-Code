@@ -44,7 +44,13 @@ void trackCommand::Execute() {
 
   ty = Robot::table->GetEntry("ty").GetDouble(0.0);
   
-  Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::Position, 0);
+  
+
+
+
+
+
+  Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::Position, TARGETTILTANGLE);
 
 }
 
