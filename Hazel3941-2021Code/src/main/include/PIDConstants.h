@@ -13,8 +13,8 @@ static constexpr int kTimeoutMs = 40;
 
 static constexpr int ARM_ANGLE_CAN_LOOP_ID = 0;
 static constexpr float ARM_ANGLE_F = 0.0;
-static constexpr float ARM_ANGLE_P = 0.0;
-static constexpr float ARM_ANGLE_I = 0.1;
+static constexpr float ARM_ANGLE_P = 0.01;
+static constexpr float ARM_ANGLE_I = 0.0;
 static constexpr float ARM_ANGLE_D = 0.0;
 
 static constexpr float TRACK_HORIZONTAL_P = 0.013095239177346;

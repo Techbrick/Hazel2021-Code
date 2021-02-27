@@ -21,6 +21,8 @@ pigeon(ARM_PIGEON_ID)
   armMotor.Config_kP(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_P, kTimeoutMs);
   armMotor.Config_kI(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_I, kTimeoutMs);
   armMotor.Config_kD(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_D, kTimeoutMs);
+
+  armMotor.SetSensorPhase(true);
   /*armMotor.ConfigReverseLimitSwitchSource(
 					LimitSwitchSource::LimitSwitchSource_FeedbackConnector,
 					LimitSwitchNormal::LimitSwitchNormal_NormallyClosed);
