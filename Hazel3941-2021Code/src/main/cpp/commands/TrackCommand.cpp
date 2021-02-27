@@ -28,7 +28,7 @@ void trackCommand::Initialize() {
 void trackCommand::Execute() {
   
   float lastTx = tx;
-  tx = Robot::table->GetNumber("tx", 0.0);
+  tx = Robot::table->GetEntry("tx").GetDouble(0.0);
 
   //frc::SmartDashboard::PutNumber("txDebug", tx);
   //frc::SmartDashboard::PutNumber("tyDebug", ty);
@@ -42,7 +42,7 @@ void trackCommand::Execute() {
   float rPID = TRACK_HORIZONTAL_P * rP + TRACK_HORIZONTAL_I * rI + TRACK_HORIZONTAL_D * rD;
   Robot::Drive.driveControl.ArcadeDrive(DRIVE_CONTROLLER_DRIVE_AXIS_X, -rPID);
 
-  ty = Robot::table->GetNumber("ty", 0.0);
+  ty = Robot::table->GetEntry("ty").GetDouble(0.0);
   
   Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::Position, 0);
 

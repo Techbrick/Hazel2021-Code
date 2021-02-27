@@ -21,7 +21,7 @@ void DefaultDriveCommand::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void DefaultDriveCommand::Execute() {
-    frc::SmartDashboard::PutNumber("Axis X", Robot::oi.DriverController->GetRawAxis(DRIVE_CONTROLLER_DRIVE_AXIS_X));
+    //frc::SmartDashboard::PutNumber("Axis X", Robot::oi.DriverController->GetRawAxis(DRIVE_CONTROLLER_DRIVE_AXIS_X));
     double joyX = -std::pow(Robot::oi.DriverController->GetRawAxis(DRIVE_CONTROLLER_DRIVE_AXIS_X), STEERING_SENSITIVITY_FACTOR);
     double joyY = std::pow(Robot::oi.DriverController->GetRawAxis(DRIVE_CONTROLLER_DRIVE_AXIS_Y), DRIVE_SENSITIVITY_FACTOR);
     //joyY = 0;
