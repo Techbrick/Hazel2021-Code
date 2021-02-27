@@ -88,6 +88,8 @@ class trackCommand : public frc::Command {
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+  float GetBallisticSpeed(float dist);
+  float GetBallisticAngle(float dist);
   float tx, ty;
   float rP = 0;
   float rI = 0;

@@ -8,6 +8,7 @@
 #include "commands/Commands.h"
 
 #include "Robot.h"
+#include <cmath>
 #include "PIDConstants.h"
 
 trackCommand::trackCommand() {
@@ -44,14 +45,40 @@ void trackCommand::Execute() {
 
   ty = Robot::table->GetEntry("ty").GetDouble(0.0);
   
+  double angles[3];
+  Robot::Shooter.pigeon.GetYawPitchRoll(angles);
+
+  frc::SmartDashboard::PutNumber("Pigeon Pitch", angles[1]);
+
+  float RAD_SCALE = 3.1415 / 180;
+
+  float pitch = RAD_SCALE * angles[1];
+
+  float lx = std::cos(0.628319 + pitch) * 20.4022057;
+  float ly = std::sin(0.628319 + pitch) * 20.4022057 + 17;
+
+  float d = (90.5 - ly) / (std::tan(pitch + (ty * RAD_SCALE))) + lx;
+
+
+
+  Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::Position, GetBallisticAngle(d));
+  float speed = GetBallisticSpeed(d);
+  Robot::Shooter.left.Set(motorcontrol::ControlMode::Velocity, speed);
+  Robot::Shooter.right.Set(motorcontrol::ControlMode::Velocity, speed);
   
 
+}
 
+float trackCommand::GetBallisticSpeed(float dist){
+  float A = .2;
+  float B = 12;
+  return 12288 + (8192) * 0.5 * std::tanh((dist - B) * A);
+}
 
-
-
-  Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::Position, TARGETTILTANGLE);
-
+float trackCommand::GetBallisticAngle(float dist){
+  float A = .13;
+  float B = 0;
+  return 80 - 55 * std::tanh((dist - B) * A);
 }
 
 // Make this return true when this Command no longer needs to run execute()
