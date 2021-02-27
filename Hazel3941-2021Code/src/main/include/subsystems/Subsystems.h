@@ -29,17 +29,6 @@ class ExampleSubsystem : public frc::Subsystem {
   // for methods that implement subsystem capabilities
 };
 
-class ClimberSubsystem : public frc::Subsystem {
-  public:
-    ClimberSubsystem();
-    TalonSRX climber;
-    TalonSRX lift;
-    void InitDefaultCommand() override;
-
-  private:
-
-};
-
 class DriveSubsystem : public frc::Subsystem {
   public:
     DriveSubsystem();
@@ -101,8 +90,8 @@ class ShooterSubsystem : public frc::Subsystem {
     ShooterSubsystem();
     void InitDefaultCommand() override;
     TalonSRX armMotor;
-    TalonSRX shooterController;
-    TalonSRX shooterFollower;
+    TalonFX left;
+    TalonFX right;
     PigeonIMU pigeon;
     bool isShooterZeroed = false;
     //frc::DigitalInput upperLim{DIO_UPPER_LIM};

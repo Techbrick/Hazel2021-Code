@@ -14,5 +14,11 @@
     "**/.factorypath": true,
     "**/*~": true
   },
-  "C_Cpp.default.configurationProvider": "vscode-wpilib"
+  "C_Cpp.default.configurationProvider": "vscode-wpilib",
+  "extensions.ignoreRecommendations": true,
+  "files.autoSave": "off"
+  "extensions.ignoreRecommendations": true,
+  "files.autoSave": "off"
+  "extensions.ignoreRecommendations": true,
+  "files.autoSave": "off"
 }

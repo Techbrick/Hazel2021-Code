@@ -8,6 +8,7 @@
 #include "commands/Commands.h"
 
 #include "Robot.h"
+#include "PIDConstants.h"
 
 trackCommand::trackCommand() {
   // Use Requires() here to declare subsystem dependencies
@@ -38,12 +39,12 @@ void trackCommand::Execute() {
   rP = tx;
   rI = .9 * tx + .1 * rI;
   rD = lastTx - tx;
-  float rPID = TRACK_ROT_P * rP + TRACK_ROT_I * rI + TRACK_ROT_D * rD;
+  float rPID = TRACK_HORIZONTAL_P * rP + TRACK_HORIZONTAL_I * rI + TRACK_HORIZONTAL_D * rD;
   Robot::Drive.driveControl.ArcadeDrive(DRIVE_CONTROLLER_DRIVE_AXIS_X, -rPID);
 
   ty = Robot::table->GetNumber("ty", 0.0);
   
-  Robot::Shooter.armMotor.Set(0);
+  Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::Position, 0);
 
 }
 

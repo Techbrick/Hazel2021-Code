@@ -16,4 +16,6 @@ OI::OI() {
   OperatorController = new frc::Joystick(1);
 	frc::JoystickButton* trackButton = new frc::JoystickButton(DriverController, DRIVE_TRACK_BUTTON);
   trackButton->WhenPressed(new trackCommand());
+  frc::JoystickButton* zeroShooterButton = new frc::JoystickButton(OperatorController, OPERATOR_ZERO_BUTTON);
+  zeroShooterButton->WhenPressed(new ZeroShooterPigeonCommand());
 }

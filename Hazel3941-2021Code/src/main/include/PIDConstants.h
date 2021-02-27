@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * Map of PID Constants for PID Tuning
  */
@@ -15,9 +17,9 @@ static constexpr float ARM_ANGLE_P = 0.0;
 static constexpr float ARM_ANGLE_I = 0.1;
 static constexpr float ARM_ANGLE_D = 0.0;
 
-static constexpr float TRACK_ROT_P = 0.1;
-static constexpr float TRACK_ROT_I = 0.01;
-static constexpr float TRACK_ROT_D = 0.05;
-//static constexpr float TRACK_ANGLE_P = 0.1;
-//static constexpr float TRACK_ANGLE_I = 0.01;
-//static constexpr float TRACK_ANGLE_D = 0.05;
+static constexpr float TRACK_HORIZONTAL_P = 0.013095239177346;
+static constexpr float TRACK_HORIZONTAL_I = 0.019391534850001;
+static constexpr float TRACK_HORIZONTAL_D = 0.018121695145965;
+
+
+

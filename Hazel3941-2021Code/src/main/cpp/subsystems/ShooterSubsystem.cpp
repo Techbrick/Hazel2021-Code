@@ -3,8 +3,8 @@
 
 ShooterSubsystem::ShooterSubsystem() : frc::Subsystem("ShooterSubsystem"),
 armMotor(ARM_ID),
-shooterController(SHOOTER_A_ID),
-shooterFollower(SHOOTER_B_ID),
+left(SHOOTER_A_ID),
+right(SHOOTER_B_ID),
 pigeon(ARM_PIGEON_ID)
 {
   armMotor.ConfigFactoryDefault();
@@ -25,15 +25,51 @@ pigeon(ARM_PIGEON_ID)
 					LimitSwitchSource::LimitSwitchSource_FeedbackConnector,
 					LimitSwitchNormal::LimitSwitchNormal_NormallyClosed);
   */
-  shooterFollower.ConfigFactoryDefault();
-  shooterFollower.SetInverted(false);
-  shooterFollower.SetNeutralMode(Coast);
 
-  shooterController.ConfigFactoryDefault();
-  shooterController.SetInverted(true);
-  shooterController.SetNeutralMode(Coast);
+  left.ConfigFactoryDefault();
+  left.SetInverted(TalonFXInvertType::CounterClockwise);
+  left.SetNeutralMode(Coast);
+
+  right.ConfigFactoryDefault();
+  right.SetInverted(TalonFXInvertType::Clockwise);
+  right.SetNeutralMode(Coast);
   
-  shooterFollower.Follow(shooterController);
+  // shooterFollower.Follow(shooterController);
+
+  left.ConfigNominalOutputForward(0, 10);
+  left.ConfigNominalOutputReverse(0, 10);
+  left.ConfigPeakOutputForward(1, 10);
+  left.ConfigPeakOutputReverse(-1, 10);
+
+  right.ConfigNominalOutputForward(0, 10);
+  right.ConfigNominalOutputReverse(0, 10);
+  right.ConfigPeakOutputForward(1, 10);
+  right.ConfigPeakOutputReverse(-1, 10);
+
+  left.SelectProfileSlot(0, 0);
+  right.SelectProfileSlot(0, 0);
+
+  left.Config_kF(0, 0.04797, kTimeoutMs);
+	left.Config_kP(0, 0.052, kTimeoutMs);
+	left.Config_kI(0, 0.0, kTimeoutMs);
+	left.Config_kD(0, 0.0, kTimeoutMs);
+
+  right.Config_kF(0, 0.04797, kTimeoutMs);
+  right.Config_kP(0, 0.052, kTimeoutMs);
+	right.Config_kI(0, 0.0, kTimeoutMs);
+	right.Config_kD(0, 0.0, kTimeoutMs);
+
+  /*left.ConfigMotionCruiseVelocity(1500, 10);
+  right.ConfigMotionCruiseVelocity(1500, 10);
+
+  left.ConfigMotionAcceleration(1500, 10);
+  right.ConfigMotionAcceleration(1500, 10);*/
+
+  left.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, 10);
+  right.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor, 0, 10);
+
+  left.SetSelectedSensorPosition(0, 0, 10);
+  right.SetSelectedSensorPosition(0, 0, 10);
 }
 
 void ShooterSubsystem::InitDefaultCommand() {

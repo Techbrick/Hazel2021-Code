@@ -1,3 +1,5 @@
+#pragma once
+
 struct Ball{
     public:
         Ball(float val){
