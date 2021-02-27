@@ -34,6 +34,10 @@ class DriveSubsystem : public frc::Subsystem {
     DriveSubsystem();
     void InitDefaultCommand() override;
     void Periodic() override;
+    void TankDriveVolts(units::volt_t left, units::volt_t right);
+    void ResetOdometry(frc::Pose2d pose);
+    void ResetEncoders();
+    frc::DifferentialDriveWheelSpeeds GetWheelSpeeds();
     // Remove WPI_ for motion magic or something
     WPI_TalonSRX RightController;
     WPI_VictorSPX RightFollower;

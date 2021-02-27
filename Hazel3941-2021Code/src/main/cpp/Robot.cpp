@@ -18,9 +18,16 @@ ShooterSubsystem Robot::Shooter;
 frc::Compressor Robot::robotCompressor{13};
 OI Robot::oi;
 std::shared_ptr<NetworkTable> Robot::table;
+AHRS* Robot::navx;
 
 void Robot::RobotInit() {
-  navx = new AHRS(frc::SPI::kMXP);
+  try {
+    navx = new AHRS(frc::SPI::kMXP);
+  } catch (std::exception& ex ) {
+    // std::string err_string = "Error instantiating navX MXP:  ";
+    // err_string += ex.what();
+    // DriverStation::ReportError(err_string.c_str());
+  }
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
   m_chooser.AddOption("Base Auto", &BaseAuto);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
