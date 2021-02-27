@@ -9,6 +9,7 @@
 
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include "PIDConstants.h"
 
 ExampleSubsystem Robot::m_subsystem;
 DriveSubsystem Robot::Drive;
@@ -25,6 +26,10 @@ void Robot::RobotInit() {
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   robotCompressor.SetClosedLoopControl(true);
   table = NetworkTable::GetTable("limelight");
+  frc::SmartDashboard::PutNumber("VTrackP", ARM_ANGLE_P);
+  frc::SmartDashboard::PutNumber("VTrackI", ARM_ANGLE_I);
+  frc::SmartDashboard::PutNumber("VTrackD", ARM_ANGLE_D);
+  frc::SmartDashboard::PutNumber("VTrackF", ARM_ANGLE_F);
 }
 
 /**

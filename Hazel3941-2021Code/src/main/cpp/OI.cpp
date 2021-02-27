@@ -18,4 +18,6 @@ OI::OI() {
   trackButton->WhenPressed(new trackCommand());
   frc::JoystickButton* zeroShooterButton = new frc::JoystickButton(OperatorController, OPERATOR_ZERO_BUTTON);
   zeroShooterButton->WhenPressed(new ZeroShooterPigeonCommand());
+  frc::JoystickButton* reconfigButton = new frc::JoystickButton(OperatorController, OPERATOR_RECONFIG_BUTTON);
+  reconfigButton->WhenPressed(new ReconfigureCommand());
 }
