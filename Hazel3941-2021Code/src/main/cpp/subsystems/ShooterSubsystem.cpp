@@ -14,13 +14,15 @@ pigeon(ARM_PIGEON_ID)
   pigeon.ConfigFactoryDefault();
 
   // What I think this is doing: configuring feedback device 0 
-  armMotor.ConfigRemoteFeedbackFilter(pigeon.GetDeviceNumber(), ctre::phoenix::motorcontrol::RemoteSensorSource::RemoteSensorSource_Pigeon_Yaw, 0, kTimeoutMs);
+  armMotor.ConfigRemoteFeedbackFilter(pigeon.GetDeviceNumber(), ctre::phoenix::motorcontrol::RemoteSensorSource::RemoteSensorSource_Pigeon_Pitch, 0, kTimeoutMs);
   armMotor.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::RemoteSensor0, ARM_ANGLE_CAN_LOOP_ID, kTimeoutMs);
 
   armMotor.Config_kF(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_F, kTimeoutMs);
   armMotor.Config_kP(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_P, kTimeoutMs);
   armMotor.Config_kI(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_I, kTimeoutMs);
   armMotor.Config_kD(ARM_ANGLE_CAN_LOOP_ID, ARM_ANGLE_D, kTimeoutMs);
+
+  armMotor.SetSensorPhase(true);
   /*armMotor.ConfigReverseLimitSwitchSource(
 					LimitSwitchSource::LimitSwitchSource_FeedbackConnector,
 					LimitSwitchNormal::LimitSwitchNormal_NormallyClosed);

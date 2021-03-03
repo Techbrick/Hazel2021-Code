@@ -16,7 +16,7 @@ ZeroShooterPigeonCommand::ZeroShooterPigeonCommand() {
 
 // Called just before this Command runs the first time
 void ZeroShooterPigeonCommand::Initialize() {
-  frc::SmartDashboard::PutBoolean("Is zeroing?", true);
+  //frc::SmartDashboard::PutBoolean("Is zeroing?", true);
   Robot::Shooter.isShooterZeroed = false;
 }
 
@@ -38,7 +38,7 @@ void ZeroShooterPigeonCommand::Execute() {
 
 // Make this return true when this Command no longer needs to run execute()
 bool ZeroShooterPigeonCommand::IsFinished() {
-  frc::SmartDashboard::PutBoolean("Is zeroing?", Robot::Shooter.isShooterZeroed);
+  //frc::SmartDashboard::PutBoolean("Is zeroing?", Robot::Shooter.isShooterZeroed);
   return Robot::Shooter.isShooterZeroed;
 }
 

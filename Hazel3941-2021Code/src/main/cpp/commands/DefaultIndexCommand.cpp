@@ -20,7 +20,7 @@ void DefaultIndexCommand::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void DefaultIndexCommand::Execute() {
 	//frc::SmartDashboard::PutNumberArray("ballArray", Robot::Indexer.balls);
-	frc::SmartDashboard::PutNumber("ballArraySize", Robot::Indexer.balls.size());
+	//frc::SmartDashboard::PutNumber("ballArraySize", Robot::Indexer.balls.size());
 	if(!Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
 		if(Robot::Indexer.drivenManually == true){
 			Robot::Indexer.beltOn = false;
@@ -78,7 +78,7 @@ void DefaultIndexCommand::Execute() {
 		}else{
 			Robot::Indexer.beltOn = false;
 		}
-		frc::SmartDashboard::PutBoolean("wheelOn", Robot::Indexer.indexWheelOn);
+		//frc::SmartDashboard::PutBoolean("wheelOn", Robot::Indexer.indexWheelOn);
 		if(Robot::Intake.extended && Robot::Indexer.beltOn && Robot::Intake.manualEnabled){
 			Robot::Indexer.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, 1.0);
 		}else{
