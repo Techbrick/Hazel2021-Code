@@ -8,11 +8,28 @@
 #pragma once
 
 #include <frc/commands/Command.h>
+#include "frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h"
+#include "RobotCharacteristics.h"
 
 class baseAutoCommand : public frc::Command {
  public:
   baseAutoCommand();
   int timer;
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+};
+
+class TestTrajectoryCommand : public frc::Command {
+ public:
+  TestTrajectoryCommand();
+  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint {
+    frc::SimpleMotorFeedforward<units::meters>(ks, kv, ka),
+    kDriveKinematics,
+    10_V
+  };
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
