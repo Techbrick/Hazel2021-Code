@@ -59,10 +59,15 @@ void trackCommand::Execute() {
 
   float d = (90.5 - ly) / (std::tan(pitch + (ty * RAD_SCALE))) + lx;
 
+  frc::SmartDashboard::PutNumber("Distance Estimator", d);
 
+  
 
   Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::Position, GetBallisticAngle(d));
   float speed = GetBallisticSpeed(d);
+
+  frc::SmartDashboard::PutNumber("RPM target", speed);
+
   Robot::Shooter.left.Set(motorcontrol::ControlMode::Velocity, speed);
   Robot::Shooter.right.Set(motorcontrol::ControlMode::Velocity, speed);
   
@@ -72,14 +77,15 @@ void trackCommand::Execute() {
 float trackCommand::GetBallisticSpeed(float dist){
   float A = .2;
   float B = 12;
-  return 12288 + (8192) * 0.5 * std::tanh((dist - B) * A + 1);
+  return 12288 + (8192) * 0.5 * (std::tanh(((dist / 12) - B) * A) + 1);
 }
 
 float trackCommand::GetBallisticAngle(float dist){
-  float angleFactor = 6.5 / 150;
+  float angleFactor = - 150 / 6.5;
   float A = .13;
   float B = 0;
-  return angleFactor * (80 - 55 * std::tanh((dist - B) * A));
+  frc::SmartDashboard::PutNumber("Target angle", (80 - 55 * std::tanh((dist - B) * A)));
+  return angleFactor * (67 - 38 * std::tanh(((dist / 12) - B) * A));
 }
 
 // Make this return true when this Command no longer needs to run execute()
