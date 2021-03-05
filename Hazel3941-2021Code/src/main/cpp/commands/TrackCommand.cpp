@@ -72,13 +72,14 @@ void trackCommand::Execute() {
 float trackCommand::GetBallisticSpeed(float dist){
   float A = .2;
   float B = 12;
-  return 12288 + (8192) * 0.5 * std::tanh((dist - B) * A);
+  return 12288 + (8192) * 0.5 * std::tanh((dist - B) * A + 1);
 }
 
 float trackCommand::GetBallisticAngle(float dist){
+  float angleFactor = 6.5 / 150;
   float A = .13;
   float B = 0;
-  return 80 - 55 * std::tanh((dist - B) * A);
+  return angleFactor * (80 - 55 * std::tanh((dist - B) * A));
 }
 
 // Make this return true when this Command no longer needs to run execute()
