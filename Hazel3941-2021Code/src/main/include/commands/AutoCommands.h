@@ -9,6 +9,9 @@
 
 #include <frc/commands/Command.h>
 #include "frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h"
+#include "frc/trajectory/TrajectoryConfig.h"
+#include "frc/trajectory/TrajectoryGenerator.h"
+#include "frc/trajectory/Trajectory.h"
 #include "RobotCharacteristics.h"
 
 class baseAutoCommand : public frc::Command {
@@ -25,11 +28,13 @@ class baseAutoCommand : public frc::Command {
 class TestTrajectoryCommand : public frc::Command {
  public:
   TestTrajectoryCommand();
-  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint {
+  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint = frc::DifferentialDriveVoltageConstraint(
     frc::SimpleMotorFeedforward<units::meters>(ks, kv, ka),
     kDriveKinematics,
     10_V
-  };
+  );
+  frc::TrajectoryConfig trajectoryConfig = frc::TrajectoryConfig(kMaxSpeed, kMaxAcceleration);
+  frc::Trajectory trajectory;
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
