@@ -41,7 +41,11 @@ void trackCommand::Execute() {
   rI = .9 * tx + .1 * rI;
   rD = lastTx - tx;
   float rPID = TRACK_HORIZONTAL_P * rP + TRACK_HORIZONTAL_I * rI + TRACK_HORIZONTAL_D * rD;
-  Robot::Drive.driveControl.ArcadeDrive(driverJoyY, -rPID);
+  float cap = .45;
+  if(abs(rPID) > cap){
+    rPID = (float)((rPID > 0) - (rPID < 0)) * cap;
+  }
+  Robot::Drive.driveControl.ArcadeDrive(driverJoyY, -rPID, false);
 
   ty = Robot::table->GetEntry("ty").GetDouble(0.0);
   
@@ -54,8 +58,12 @@ void trackCommand::Execute() {
 
   float pitch = RAD_SCALE * angles[1];
 
-  float lx = std::cos(0.628319 + pitch) * 20.4022057;
-  float ly = std::sin(0.628319 + pitch) * 20.4022057 + 17;
+  // height of pivot 18.4 in
+  // angle offset at level of limelight 0.568524548
+  // dist from pivot to limelight 21.36001
+
+  float lx = std::cos(0.568524548 + pitch) * 21.36001;
+  float ly = std::sin(0.568524548 + pitch) * 21.36001 + 18.25;
 
   float d = (90.5 - ly) / (std::tan(pitch + (ty * RAD_SCALE))) + lx;
 
@@ -68,8 +76,8 @@ void trackCommand::Execute() {
 
   frc::SmartDashboard::PutNumber("RPM target", speed);
 
-  Robot::Shooter.left.Set(motorcontrol::ControlMode::Velocity, speed);
-  Robot::Shooter.right.Set(motorcontrol::ControlMode::Velocity, speed);
+  Robot::Shooter.left.Set(motorcontrol::ControlMode::Velocity, speed-0);
+  Robot::Shooter.right.Set(motorcontrol::ControlMode::Velocity, speed-0);
   
 
 }
@@ -82,10 +90,11 @@ float trackCommand::GetBallisticSpeed(float dist){
 
 float trackCommand::GetBallisticAngle(float dist){
   float angleFactor = - 150 / 6.5;
-  float A = .13;
-  float B = 0;
-  frc::SmartDashboard::PutNumber("Target angle", (80 - 55 * std::tanh((dist - B) * A)));
-  return angleFactor * (67 - 38 * std::tanh(((dist / 12) - B) * A));
+  float A = .12;
+  float B = -.6;
+  // 90 - 61 * tanh[(x/12 - (-0.6)) * 0.12]
+  frc::SmartDashboard::PutNumber("Target angle", (90 - 61 * std::tanh(((dist / 12) - B) * A)));
+  return angleFactor * (90 - 61 * std::tanh(((dist / 12) - B) * A));
 }
 
 // Make this return true when this Command no longer needs to run execute()
