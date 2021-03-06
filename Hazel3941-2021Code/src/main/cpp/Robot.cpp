@@ -31,6 +31,7 @@ void Robot::RobotInit() {
   }
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
   m_chooser.AddOption("Base Auto", &BaseAuto);
+  m_chooser.AddOption("Test Trajectory Command", &testTrajectoryCommand);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   robotCompressor.SetClosedLoopControl(true);
   table = NetworkTable::GetTable("limelight");

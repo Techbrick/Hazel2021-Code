@@ -19,25 +19,47 @@ TestTrajectoryCommand::TestTrajectoryCommand() {
     // Start at the origin facing the +X direction
       frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
       // Pass through these two interior waypoints, making an 's' curve path
-      {frc::Translation2d(1_m, 1_m), frc::Translation2d(2_m, -1_m)},
+      {},
       // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(3_m, 0_m, frc::Rotation2d(0_deg)),
+      frc::Pose2d(1_m, 0_m, frc::Rotation2d(0_deg)),
       trajectoryConfig
+  );
+
+  *ramseteCommand = frc2::RamseteCommand(
+    trajectory,
+    [this]() { return Robot::Drive.odometry.GetPose(); },
+    frc::RamseteController(kRamseteB, kRamseteZeta),
+    frc::SimpleMotorFeedforward<units::meters>(ks, kv, ka),
+    kDriveKinematics,
+    [this]() { return Robot::Drive.GetWheelSpeeds(); },
+    frc2::PIDController(kPDriveVel, 0, 0),
+    frc2::PIDController(kPDriveVel, 0, 0),
+    [this](units::volt_t left, units::volt_t right) { Robot::Drive.TankDriveVolts(left, right); }
   );
 }
 
 // Called just before this Command runs the first time
-void TestTrajectoryCommand::Initialize() {}
+void TestTrajectoryCommand::Initialize() {
+  ramseteCommand->Initialize();
+}
 
 // Called repeatedly when this Command is scheduled to run
-void TestTrajectoryCommand::Execute() {}
+void TestTrajectoryCommand::Execute() {
+  ramseteCommand->Execute();
+}
 
 // Make this return true when this Command no longer needs to run execute()
-bool TestTrajectoryCommand::IsFinished() { return false; }
+bool TestTrajectoryCommand::IsFinished() {
+  return ramseteCommand->IsFinished();
+}
 
 // Called once after isFinished returns true
-void TestTrajectoryCommand::End() {}
+void TestTrajectoryCommand::End() {
+  ramseteCommand->End(false);
+}
 
 // Called when another command which requires one or more of the same
 // subsystems is scheduled to run
-void TestTrajectoryCommand::Interrupted() {}
+void TestTrajectoryCommand::Interrupted() {
+  ramseteCommand->End(true);
+}

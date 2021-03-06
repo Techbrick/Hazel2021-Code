@@ -12,6 +12,7 @@
 #include "frc/trajectory/TrajectoryConfig.h"
 #include "frc/trajectory/TrajectoryGenerator.h"
 #include "frc/trajectory/Trajectory.h"
+#include "frc2/command/RamseteCommand.h"
 #include "RobotCharacteristics.h"
 
 class baseAutoCommand : public frc::Command {
@@ -35,6 +36,7 @@ class TestTrajectoryCommand : public frc::Command {
   );
   frc::TrajectoryConfig trajectoryConfig = frc::TrajectoryConfig(kMaxSpeed, kMaxAcceleration);
   frc::Trajectory trajectory;
+  frc2::RamseteCommand* ramseteCommand = nullptr;
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
