@@ -64,3 +64,7 @@ void DriveSubsystem::UpdatedOdometry(){
     frc::SmartDashboard::PutNumber("RightMeters", rightmeters.value());
     frc::SmartDashboard::PutNumber("NavX", navx.GetRotation2d().Degrees().value());
 }
+
+frc::Pose2d DriveSubsystem::GetPose() {
+    return odometry.GetPose();
+}
