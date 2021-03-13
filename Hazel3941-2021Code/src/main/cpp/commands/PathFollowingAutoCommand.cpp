@@ -17,7 +17,7 @@ PathFollowingAutoCommand::PathFollowingAutoCommand() {
 // Called just before this Command runs the first time
 void PathFollowingAutoCommand::Initialize() {
   timer = 100;
-  Robot::navx.ZeroYaw();
+  Robot::Drive.navx.ZeroYaw();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -28,12 +28,12 @@ void PathFollowingAutoCommand::Execute() {
   }else{
     Robot::Drive.driveControl.ArcadeDrive(0, 0, false);
   }
-  frc::SmartDashboard::PutNumber("NAVX", Robot::navx.GetRotation2d().Degrees().value());
+  frc::SmartDashboard::PutNumber("NAVX", Robot::Drive.navx.GetRotation2d().Degrees().value());
 }
 
 // Make this return true when this Command no longer needs to run execute()
 bool PathFollowingAutoCommand::IsFinished() { 
-  if( abs(Robot::navx.GetRotation2d().Degrees().value() )> 90){
+  if( abs(Robot::Drive.navx.GetRotation2d().Degrees().value() )> 90){
     // We turned our desired 90 degrees, so we are done!
     return true;
   } else {

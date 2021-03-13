@@ -20,7 +20,6 @@ ShooterSubsystem Robot::Shooter;
 frc::Compressor Robot::robotCompressor{13};
 OI Robot::oi;
 std::shared_ptr<NetworkTable> Robot::table;
-AHRS Robot::navx{frc::SPI::Port::kMXP};
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
@@ -29,30 +28,10 @@ void Robot::RobotInit() {
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   robotCompressor.SetClosedLoopControl(true);
   table = NetworkTable::GetTable("limelight");
-  //navx = AHRS();
-  
-  //frc::SmartDashboard::PutNumber("VTrackP", ARM_ANGLE_P);
-  //frc::SmartDashboard::PutNumber("VTrackI", ARM_ANGLE_I);
-  //frc::SmartDashboard::PutNumber("VTrackD", ARM_ANGLE_D);
-  //frc::SmartDashboard::PutNumber("VTrackF", ARM_ANGLE_F);
-  //frc::SmartDashboard::PutNumber("TgtAngle", TARGETTILTANGLE);
 }
 
-/**
- * This function is called every robot packet, no matter the mode. Use
- * this for items like diagnostics that you want ran during disabled,
- * autonomous, teleoperated and test.
- *
- * <p> This runs after the mode specific periodic functions, but before
- * LiveWindow and SmartDashboard integrated updating.
- */
 void Robot::RobotPeriodic() {}
 
-/**
- * This function is called once each time the robot enters Disabled mode. You
- * can use it to reset any subsystem information you want to clear when the
- * robot is disabled.
- */
 void Robot::DisabledInit() {
   Intake.extended = false;
 }

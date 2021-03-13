@@ -6,14 +6,14 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/Subsystems.h"
-#include "Robot.h"
 
 DriveSubsystem::DriveSubsystem() : frc::Subsystem("DriveSubsystem"),
 LeftController(LEFT_DRIVE_CONTROLLER_ID),
 LeftFollower(LEFT_DRIVE_FOLLOWER_ID),
 RightController(RIGHT_DRIVE_CONTROLLER_ID),
-RightFollower(RIGHT_DRIVE_FOLLOWER_ID),
-odometry(Robot::navx.GetRotation2d())/*,*/
+RightFollower(RIGHT_DRIVE_FOLLOWER_ID), 
+odometry(navx.GetRotation2d())
+/*,*/
 {
 
     RightFollower.ConfigFactoryDefault();

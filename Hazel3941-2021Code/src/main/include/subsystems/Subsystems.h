@@ -13,6 +13,7 @@
 #include "frc/drive/DifferentialDrive.h"
 #include "frc/kinematics/DifferentialDriveOdometry.h"
 #include "frc/geometry/Rotation2d.h"
+#include "AHRS.h"
 #include "frc/DigitalInput.h"
 #include "frc/Compressor.h"
 #include "frc/DoubleSolenoid.h"
@@ -41,6 +42,7 @@ class DriveSubsystem : public frc::Subsystem {
     frc::DifferentialDrive driveControl{LeftController, RightController};
     frc::DoubleSolenoid ShifterSolenoid {13, 0, 1};
 
+    AHRS navx{frc::SPI::Port::kMXP};
     frc::DifferentialDriveOdometry odometry;
     
   private:
