@@ -28,6 +28,8 @@ class Robot : public frc::TimedRobot {
   static OI oi;
   static frc::Compressor robotCompressor;
   static std::shared_ptr<NetworkTable> table;
+  static AHRS navx;
+
 
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -42,8 +44,9 @@ class Robot : public frc::TimedRobot {
  private:
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
-  frc::Command* m_autonomousCommand = nullptr;
+  frc::Command* m_autonomousCommand = &auto_PathFollowingCommand;
   ExampleCommand m_defaultAuto;
   baseAutoCommand BaseAuto;
+  PathFollowingAutoCommand auto_PathFollowingCommand;
   frc::SendableChooser<frc::Command*> m_chooser;
 };

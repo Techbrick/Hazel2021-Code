@@ -11,6 +11,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "PIDConstants.h"
 
+
 ExampleSubsystem Robot::m_subsystem;
 DriveSubsystem Robot::Drive;
 IndexSubsystem Robot::Indexer;
@@ -19,13 +20,17 @@ ShooterSubsystem Robot::Shooter;
 frc::Compressor Robot::robotCompressor{13};
 OI Robot::oi;
 std::shared_ptr<NetworkTable> Robot::table;
+AHRS Robot::navx{frc::SPI::Port::kMXP};
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
   m_chooser.AddOption("Base Auto", &BaseAuto);
+  m_chooser.AddOption("Path Following", &auto_PathFollowingCommand);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   robotCompressor.SetClosedLoopControl(true);
   table = NetworkTable::GetTable("limelight");
+  //navx = AHRS();
+  
   //frc::SmartDashboard::PutNumber("VTrackP", ARM_ANGLE_P);
   //frc::SmartDashboard::PutNumber("VTrackI", ARM_ANGLE_I);
   //frc::SmartDashboard::PutNumber("VTrackD", ARM_ANGLE_D);
@@ -75,7 +80,7 @@ void Robot::AutonomousInit() {
   // }
 
   m_autonomousCommand = m_chooser.GetSelected();
-
+  m_autonomousCommand = &auto_PathFollowingCommand;
   if (m_autonomousCommand != nullptr) {
     m_autonomousCommand->Start();
   }

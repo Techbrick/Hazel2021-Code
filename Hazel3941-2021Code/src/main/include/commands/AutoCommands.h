@@ -19,3 +19,14 @@ class baseAutoCommand : public frc::Command {
   void End() override;
   void Interrupted() override;
 };
+
+class PathFollowingAutoCommand : public frc::Command {
+ public:
+  PathFollowingAutoCommand();
+  int timer;
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+};

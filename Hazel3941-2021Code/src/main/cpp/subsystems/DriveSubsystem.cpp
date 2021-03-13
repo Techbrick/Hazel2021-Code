@@ -6,26 +6,15 @@
 /*----------------------------------------------------------------------------*/
 
 #include "subsystems/Subsystems.h"
+#include "Robot.h"
 
 DriveSubsystem::DriveSubsystem() : frc::Subsystem("DriveSubsystem"),
 LeftController(LEFT_DRIVE_CONTROLLER_ID),
 LeftFollower(LEFT_DRIVE_FOLLOWER_ID),
 RightController(RIGHT_DRIVE_CONTROLLER_ID),
-RightFollower(RIGHT_DRIVE_FOLLOWER_ID)/*,
-driveControl(LeftController, RightController)*/
+RightFollower(RIGHT_DRIVE_FOLLOWER_ID),
+odometry(Robot::navx.GetRotation2d())/*,*/
 {
-    LeftController.ConfigFactoryDefault();
-    LeftController.ClearStickyFaults();
-    LeftController.SetNeutralMode(Brake);
-
-    LeftFollower.ConfigFactoryDefault();
-    LeftFollower.ClearStickyFaults();
-    LeftFollower.SetNeutralMode(Brake);
-    LeftFollower.Follow(LeftController);
-
-    RightController.ConfigFactoryDefault();
-    RightController.ClearStickyFaults();
-    RightController.SetNeutralMode(Brake);
 
     RightFollower.ConfigFactoryDefault();
     RightFollower.ClearStickyFaults();

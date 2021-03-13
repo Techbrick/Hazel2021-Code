@@ -11,6 +11,8 @@
 #include "commands/Commands.h"
 #include "ctre/Phoenix.h"
 #include "frc/drive/DifferentialDrive.h"
+#include "frc/kinematics/DifferentialDriveOdometry.h"
+#include "frc/geometry/Rotation2d.h"
 #include "frc/DigitalInput.h"
 #include "frc/Compressor.h"
 #include "frc/DoubleSolenoid.h"
@@ -38,6 +40,8 @@ class DriveSubsystem : public frc::Subsystem {
     WPI_VictorSPX LeftFollower;
     frc::DifferentialDrive driveControl{LeftController, RightController};
     frc::DoubleSolenoid ShifterSolenoid {13, 0, 1};
+
+    frc::DifferentialDriveOdometry odometry;
     
   private:
 
