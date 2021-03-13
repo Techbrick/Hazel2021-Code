@@ -19,9 +19,13 @@ odometry(navx.GetRotation2d())
     LeftController.ClearStickyFaults();
     LeftController.SetNeutralMode(Brake);
 
+    LeftController.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::QuadEncoder, 0, 10);
+
     RightController.ConfigFactoryDefault();
     RightController.ClearStickyFaults();
     RightController.SetNeutralMode(Brake);
+
+    RightController.ConfigSelectedFeedbackSensor(ctre::phoenix::motorcontrol::FeedbackDevice::QuadEncoder, 0, 10);
 
     LeftFollower.ConfigFactoryDefault();
     LeftFollower.ClearStickyFaults();
@@ -38,3 +42,12 @@ void DriveSubsystem::InitDefaultCommand() {
     SetDefaultCommand(new DefaultDriveCommand());
 }
 
+void DriveSubsystem::UpdatedOdometry(){
+    odometry.Update(
+        navx.GetRotation2d(),
+        units::meter_t(LeftController.GetSelectedSensorPosition() * kEncoderDistancePerPulse),
+        units::meter_t(RightController.GetSelectedSensorPosition() * kEncoderDistancePerPulse)
+    );
+    frc::SmartDashboard::PutNumber("NAVX", odometry.GetPose().X().value());
+    frc::SmartDashboard::PutNumber("NAVY", odometry.GetPose().Y().value());
+}

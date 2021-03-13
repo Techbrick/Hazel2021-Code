@@ -17,7 +17,11 @@ DefaultDriveCommand::DefaultDriveCommand() {
 }
 
 // Called just before this Command runs the first time
-void DefaultDriveCommand::Initialize() {}
+void DefaultDriveCommand::Initialize() {
+    /*Robot::Drive.LeftController.SetSelectedSensorPosition(0,0,10);
+    Robot::Drive.RightController.SetSelectedSensorPosition(0,0,10);
+    Robot::Drive.odometry.ResetPosition(Robot::Drive.navx.get;*/
+}
 
 // Called repeatedly when this Command is scheduled to run
 void DefaultDriveCommand::Execute() {
@@ -55,6 +59,8 @@ void DefaultDriveCommand::Execute() {
     }else{
         Robot::Drive.ShifterSolenoid.Set(frc::DoubleSolenoid::Value::kReverse);
     }
+
+    Robot::Drive.UpdatedOdometry();
 }
 
 // Make this return true when this Command no longer needs to run execute()

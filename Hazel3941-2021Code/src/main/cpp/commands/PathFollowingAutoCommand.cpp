@@ -22,13 +22,14 @@ void PathFollowingAutoCommand::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void PathFollowingAutoCommand::Execute() {
+  Robot::Drive.UpdatedOdometry();
   if(true/*timer > 0*/){
     Robot::Drive.driveControl.ArcadeDrive(0, -.3, false);
     timer--;
   }else{
     Robot::Drive.driveControl.ArcadeDrive(0, 0, false);
   }
-  frc::SmartDashboard::PutNumber("NAVX", Robot::Drive.navx.GetRotation2d().Degrees().value());
+
 }
 
 // Make this return true when this Command no longer needs to run execute()

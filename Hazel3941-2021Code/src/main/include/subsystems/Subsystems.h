@@ -17,6 +17,10 @@
 #include "frc/DigitalInput.h"
 #include "frc/Compressor.h"
 #include "frc/DoubleSolenoid.h"
+#include "RobotCharacteristics.h"
+#include "RobotCharacteristics.h"
+#include "RobotCharacteristics.h"
+#include "RobotCharacteristics.h"
 #include "Objects.h"
 #include "RobotMap.h"
 
@@ -34,6 +38,7 @@ class DriveSubsystem : public frc::Subsystem {
   public:
     DriveSubsystem();
     void InitDefaultCommand() override;
+    void UpdatedOdometry();
     // Remove WPI_ for motion magic or something
     WPI_TalonSRX RightController;
     WPI_VictorSPX RightFollower;
