@@ -15,6 +15,18 @@ RightFollower(RIGHT_DRIVE_FOLLOWER_ID),
 odometry(navx.GetRotation2d())
 /*,*/
 {
+    LeftController.ConfigFactoryDefault();
+    LeftController.ClearStickyFaults();
+    LeftController.SetNeutralMode(Brake);
+
+    RightController.ConfigFactoryDefault();
+    RightController.ClearStickyFaults();
+    RightController.SetNeutralMode(Brake);
+
+    LeftFollower.ConfigFactoryDefault();
+    LeftFollower.ClearStickyFaults();
+    LeftFollower.SetNeutralMode(Brake);
+    LeftFollower.Follow(LeftController);
 
     RightFollower.ConfigFactoryDefault();
     RightFollower.ClearStickyFaults();
