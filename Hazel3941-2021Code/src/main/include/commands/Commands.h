@@ -83,6 +83,7 @@ class ZeroShooterPigeonCommand : public frc::Command {
 class trackCommand : public frc::Command {
  public:
   trackCommand();
+  float GetDistFudgeFactor(float percieved);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;

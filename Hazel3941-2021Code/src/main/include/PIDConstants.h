@@ -19,7 +19,7 @@ static float ARM_ANGLE_D = 0.0;
 static float TARGETTILTANGLE = 0.0;
 
 static constexpr float TRACK_HORIZONTAL_P = 0.014095239177346;
-static constexpr float TRACK_HORIZONTAL_I = 0.019391534850001;
+static constexpr float TRACK_HORIZONTAL_I = 0.023391534850001;
 static constexpr float TRACK_HORIZONTAL_D = 0.0;
 
 

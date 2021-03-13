@@ -66,7 +66,7 @@ void trackCommand::Execute() {
   float ly = std::sin(0.568524548 + pitch) * 21.36001 + 18.25;
 
   float d = (90.5 - ly) / (std::tan(pitch + (ty * RAD_SCALE))) + lx;
-
+  d = d - GetDistFudgeFactor(d);
   frc::SmartDashboard::PutNumber("Distance Estimator", d);
 
   
@@ -95,6 +95,10 @@ float trackCommand::GetBallisticAngle(float dist){
   // 90 - 61 * tanh[(x/12 - (-0.6)) * 0.12]
   frc::SmartDashboard::PutNumber("Target angle", (90 - 61 * std::tanh(((dist / 12) - B) * A)));
   return angleFactor * (90 - 61 * std::tanh(((dist / 12) - B) * A));
+}
+
+float trackCommand::GetDistFudgeFactor(float percieved){
+  return (.0007f * percieved * percieved) + 5.0f;
 }
 
 // Make this return true when this Command no longer needs to run execute()
