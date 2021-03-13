@@ -10,8 +10,10 @@
 #include <frc/TimedRobot.h>
 #include <frc/commands/Command.h>
 #include <frc/smartdashboard/SendableChooser.h>
+#include <frc/SPI.h>
 
 #include "OI.h"
+#include "AHRS.h"
 #include "commands/Commands.h"
 #include "commands/AutoCommands.h"
 #include "subsystems/Subsystems.h"

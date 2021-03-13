@@ -20,6 +20,16 @@ class ExampleCommand : public frc::Command {
   void Interrupted() override;
 };
 
+class ReconfigureCommand : public frc::Command {
+ public:
+  ReconfigureCommand();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+};
+
 class DefaultDriveCommand : public frc::Command {
  public:
   DefaultDriveCommand();
@@ -73,16 +83,17 @@ class ZeroShooterPigeonCommand : public frc::Command {
 class trackCommand : public frc::Command {
  public:
   trackCommand();
+  float GetDistFudgeFactor(float percieved);
   void Initialize() override;
   void Execute() override;
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+  float GetBallisticSpeed(float dist);
+  float GetBallisticAngle(float dist);
   float tx, ty;
-  float P;
-  float I;
-  float D;
-  float PC = 0.1;
-  float IC = 0.01;
-  float DC = 0.05;
+  float rP = 0;
+  float rI = 0;
+  float rD = 0;
+  
 };
