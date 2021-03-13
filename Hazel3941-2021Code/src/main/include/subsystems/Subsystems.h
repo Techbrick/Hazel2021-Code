@@ -39,6 +39,7 @@ class DriveSubsystem : public frc::Subsystem {
     DriveSubsystem();
     void InitDefaultCommand() override;
     void UpdatedOdometry();
+    void ResetOdometryPose();
     // Remove WPI_ for motion magic or something
     WPI_TalonSRX RightController;
     WPI_VictorSPX RightFollower;

@@ -26,4 +26,9 @@ constexpr double kRamseteB = 2;
 constexpr double kRamseteZeta = 0.7;
 
 // Multiply raw sensor units by this to get distance traveled:
-constexpr double kEncoderDistancePerPulse = (0.15 * M_PI) / 4096.0;
+//constexpr double kEncoderDistancePerPulse = (0.1524 * M_PI) / 4096.0;
+// Third stage gear box = 30:54
+// 6in wheel = .1524 m
+// 4096 = encoder ticks for a mag encoder per revolution
+// 3 = VEX ball shifter encoder shaft spins 3x faster than the 30 tooth output shaft
+constexpr double kEncoderDistancePerPulse = 30.0 / 54.0 * .1524 * M_PI / 4096.0 / 3.0; // 1 tick = 0.00002164553 m travelled

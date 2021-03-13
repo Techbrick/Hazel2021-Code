@@ -21,6 +21,7 @@ void DefaultDriveCommand::Initialize() {
     /*Robot::Drive.LeftController.SetSelectedSensorPosition(0,0,10);
     Robot::Drive.RightController.SetSelectedSensorPosition(0,0,10);
     Robot::Drive.odometry.ResetPosition(Robot::Drive.navx.get;*/
+    Robot::Drive.ResetOdometryPose();
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -36,6 +36,17 @@ odometry(navx.GetRotation2d())
     RightFollower.ClearStickyFaults();
     RightFollower.SetNeutralMode(Brake);
     RightFollower.Follow(RightController);
+
+// caitlyn's attempt to no kidding reset the pose.
+    ResetOdometryPose();
+}
+
+void DriveSubsystem::ResetOdometryPose(){
+    LeftController.SetSelectedSensorPosition(0,0,10);
+    RightController.SetSelectedSensorPosition(0,0,10);
+    odometry.ResetPosition(frc::Pose2d(),frc::Rotation2d());
+    LeftController.SetSelectedSensorPosition(0,0,10);
+    RightController.SetSelectedSensorPosition(0,0,10);
 }
 
 void DriveSubsystem::InitDefaultCommand() {
@@ -43,11 +54,13 @@ void DriveSubsystem::InitDefaultCommand() {
 }
 
 void DriveSubsystem::UpdatedOdometry(){
+    // If the robot is moving forward in a straight line, both distances (left and right) must be positive.
+    units::meter_t leftmeters = units::meter_t( -LeftController.GetSelectedSensorPosition() * kEncoderDistancePerPulse); // Inverting for odometry purposes
+    units::meter_t rightmeters = units::meter_t(RightController.GetSelectedSensorPosition() * kEncoderDistancePerPulse);
     odometry.Update(
-        navx.GetRotation2d(),
-        units::meter_t(LeftController.GetSelectedSensorPosition() * kEncoderDistancePerPulse),
-        units::meter_t(RightController.GetSelectedSensorPosition() * kEncoderDistancePerPulse)
-    );
-    frc::SmartDashboard::PutNumber("NAVX", odometry.GetPose().X().value());
-    frc::SmartDashboard::PutNumber("NAVY", odometry.GetPose().Y().value());
+        navx.GetRotation2d(), leftmeters, rightmeters);
+    frc::SmartDashboard::PutNumber("OdoX", odometry.GetPose().X().value());
+    frc::SmartDashboard::PutNumber("OdoY", odometry.GetPose().Y().value());
+    frc::SmartDashboard::PutNumber("LeftMeters", leftmeters.value());
+    frc::SmartDashboard::PutNumber("RightMeters", rightmeters.value());
 }
