@@ -7,6 +7,7 @@
 #include <units/voltage.h>
 #include <units/time.h>
 #include <units/acceleration.h>
+#include <units/velocity.h>
 
 #pragma once
 
@@ -19,7 +20,7 @@ constexpr double kPDriveVel = 2.27;
 constexpr auto kTrackwidth = 1.435676591_m;
 extern const frc::DifferentialDriveKinematics kDriveKinematics;
 
-constexpr auto kMaxSpeed = 0.73_mps;
+constexpr auto kMaxSpeed = 3_mps;
 constexpr auto kMaxAcceleration = 2.92_mps_sq;
 
 constexpr double kRamseteB = 2;
