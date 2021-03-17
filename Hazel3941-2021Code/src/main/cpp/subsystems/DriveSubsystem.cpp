@@ -68,3 +68,18 @@ void DriveSubsystem::UpdatedOdometry(){
 frc::Pose2d DriveSubsystem::GetPose() {
     return odometry.GetPose();
 }
+
+void DriveSubsystem::TankDriveVolts(units::volt_t left, units::volt_t right) {
+    LeftController.SetVoltage(left);
+    RightController.SetVoltage(right);
+    driveControl.Feed();
+}
+
+frc::DifferentialDriveWheelSpeeds DriveSubsystem::GetWheelSpeeds() {
+    // This block contains a scary magic number, 0.1, that's because
+    // the Talon SRX reports in units per 100ms which we can't use.
+    return {
+        units::meters_per_second_t(LeftController.GetSelectedSensorVelocity(0) * 0.1 * kEncoderDistancePerPulse),
+        units::meters_per_second_t(RightController.GetSelectedSensorVelocity(0) * 0.1 * kEncoderDistancePerPulse)
+    };
+}

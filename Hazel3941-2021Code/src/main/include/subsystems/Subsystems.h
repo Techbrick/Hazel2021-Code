@@ -18,9 +18,6 @@
 #include "frc/Compressor.h"
 #include "frc/DoubleSolenoid.h"
 #include "RobotCharacteristics.h"
-#include "RobotCharacteristics.h"
-#include "RobotCharacteristics.h"
-#include "RobotCharacteristics.h"
 #include "Objects.h"
 #include "RobotMap.h"
 
@@ -28,7 +25,7 @@ class ExampleSubsystem : public frc::Subsystem {
   public:
     ExampleSubsystem();
     void InitDefaultCommand() override;
-
+    
   private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
@@ -40,6 +37,8 @@ class DriveSubsystem : public frc::Subsystem {
     void InitDefaultCommand() override;
     void UpdatedOdometry();
     void ResetOdometryPose();
+    frc::DifferentialDriveWheelSpeeds GetWheelSpeeds();
+    void TankDriveVolts(units::volt_t left, units::volt_t right);
     frc::Pose2d GetPose();
     // Remove WPI_ for motion magic or something
     WPI_TalonSRX RightController;
