@@ -60,8 +60,6 @@ void DefaultDriveCommand::Execute() {
     }else{
         Robot::Drive.ShifterSolenoid.Set(frc::DoubleSolenoid::Value::kReverse);
     }
-
-    Robot::Drive.UpdatedOdometry();
 }
 
 // Make this return true when this Command no longer needs to run execute()

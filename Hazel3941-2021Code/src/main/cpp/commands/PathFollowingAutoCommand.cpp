@@ -14,8 +14,6 @@ PathFollowingAutoCommand::PathFollowingAutoCommand() {
   Requires(&Robot::Drive);
 }
 
-int i = 0;
-
 // Called just before this Command runs the first time
 void PathFollowingAutoCommand::Initialize() {
   timer = 100;
@@ -31,7 +29,7 @@ void PathFollowingAutoCommand::Initialize() {
       // Pass through these two interior waypoints, making an 's' curve path
       {frc::Translation2d(1.0_m, 0.0_m)},
       // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(2.0_m, 0.0_m, frc::Rotation2d(0_deg)),
+      frc::Pose2d(2_m, 0.0_m, frc::Rotation2d(90_deg)),
       trajectoryConfig
   );
 
@@ -48,11 +46,6 @@ void PathFollowingAutoCommand::Initialize() {
   );
 
   ramseteCommand->Initialize();
-
-  i++;
-
-  frc::SmartDashboard::PutNumber("iteration", i);
-
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -68,11 +68,11 @@ void DriveSubsystem::UpdatedOdometry(){
     units::meter_t leftmeters = units::meter_t( LeftController.GetSelectedSensorPosition() * kEncoderDistancePerPulse); // Inverting for odometry purposes
     units::meter_t rightmeters = units::meter_t(RightController.GetSelectedSensorPosition() * kEncoderDistancePerPulse);
     odometry.Update(navx.GetRotation2d(), leftmeters, rightmeters);
-    /*frc::SmartDashboard::PutNumber("OdoX", odometry.GetPose().X().value());
+    frc::SmartDashboard::PutNumber("OdoX", odometry.GetPose().X().value());
     frc::SmartDashboard::PutNumber("OdoY", odometry.GetPose().Y().value());
     frc::SmartDashboard::PutNumber("LeftMeters", leftmeters.value());
     frc::SmartDashboard::PutNumber("RightMeters", rightmeters.value());
-    frc::SmartDashboard::PutNumber("NavX", navx.GetRotation2d().Degrees().value());*/
+    frc::SmartDashboard::PutNumber("NavX", navx.GetRotation2d().Degrees().value());
 }
 
 frc::Pose2d DriveSubsystem::GetPose() {

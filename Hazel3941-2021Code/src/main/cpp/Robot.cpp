@@ -30,7 +30,9 @@ void Robot::RobotInit() {
   table = NetworkTable::GetTable("limelight");
 }
 
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  Drive.UpdatedOdometry();
+}
 
 void Robot::DisabledInit() {
   Intake.extended = false;
@@ -59,7 +61,7 @@ void Robot::AutonomousInit() {
   // }
 
   m_autonomousCommand = m_chooser.GetSelected();
-  m_autonomousCommand = &auto_PathFollowingCommand;
+  m_autonomousCommand = &BaseAuto;
   if (m_autonomousCommand != nullptr) {
     m_autonomousCommand->Start();
   }
