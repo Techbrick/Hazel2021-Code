@@ -27,9 +27,13 @@ void PathFollowingAutoCommand::Initialize() {
     // Start at the origin facing the +X direction
       frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
       // Pass through these two interior waypoints, making an 's' curve path
-      {frc::Translation2d(1.0_m, 0.0_m)},
+      {
+        frc::Translation2d(1.0_m, 0.0_m),
+        frc::Translation2d(1.5_m, 0.5_m),
+        frc::Translation2d(1.0_m, 1_m)
+      },
       // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(2_m, 0.0_m, frc::Rotation2d(90_deg)),
+      frc::Pose2d(0_m, 1_m, frc::Rotation2d(180_deg)),
       trajectoryConfig
   );
 
@@ -42,7 +46,10 @@ void PathFollowingAutoCommand::Initialize() {
     [this]() { return Robot::Drive.GetWheelSpeeds(); },
     frc2::PIDController(kPDriveVel, 0, 0),
     frc2::PIDController(kPDriveVel, 0, 0),
-    [this](units::volt_t left, units::volt_t right) { Robot::Drive.TankDriveVolts(left, right); }
+    [this](units::volt_t left, units::volt_t right) { 
+      Robot::Drive.TankDriveVolts(left, -right); 
+      frc::SmartDashboard::PutNumber("CommandedLeftVolts", left.value());
+      frc::SmartDashboard::PutNumber("CommandedRightVolts", -right.value()); }
   );
 
   ramseteCommand->Initialize();
@@ -51,6 +58,9 @@ void PathFollowingAutoCommand::Initialize() {
 // Called repeatedly when this Command is scheduled to run
 void PathFollowingAutoCommand::Execute() {
   ramseteCommand->Execute();
+  frc::SmartDashboard::PutNumber("LeftWheelSpeed", Robot::Drive.GetWheelSpeeds().left.value());
+  frc::SmartDashboard::PutNumber("RightWheelSpeed", Robot::Drive.GetWheelSpeeds().right.value());
+
 }
 
 // Make this return true when this Command no longer needs to run execute()

@@ -17,6 +17,7 @@ baseAutoCommand::baseAutoCommand() {
 // Called just before this Command runs the first time
 void baseAutoCommand::Initialize() {
   timer = 100;
+  Robot::Drive.ResetOdometryPose();
 }
 
 // Called repeatedly when this Command is scheduled to run

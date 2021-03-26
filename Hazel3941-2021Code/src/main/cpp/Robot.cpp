@@ -61,7 +61,7 @@ void Robot::AutonomousInit() {
   // }
 
   m_autonomousCommand = m_chooser.GetSelected();
-  m_autonomousCommand = &BaseAuto;
+  //m_autonomousCommand = &PathFollowingAutoCommand;
   if (m_autonomousCommand != nullptr) {
     m_autonomousCommand->Start();
   }
@@ -88,7 +88,9 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
 
-void Robot::TestPeriodic() {}
+void Robot::TestPeriodic() {
+  Robot::Drive.TankDriveVolts((units::voltage::volt_t)6, (units::voltage::volt_t) -6); // Drives forward.
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }
