@@ -13,7 +13,6 @@
 #include <frc/SPI.h>
 
 #include "OI.h"
-#include "AHRS.h"
 #include "commands/Commands.h"
 #include "commands/AutoCommands.h"
 #include "subsystems/Subsystems.h"
@@ -29,21 +28,22 @@ class Robot : public frc::TimedRobot {
   static frc::Compressor robotCompressor;
   static std::shared_ptr<NetworkTable> table;
 
-  void RobotInit() override;
-  void RobotPeriodic() override;
-  void DisabledInit() override;
-  void DisabledPeriodic() override;
-  void AutonomousInit() override;
   void AutonomousPeriodic() override;
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
+  void RobotInit() override;
+  void RobotPeriodic() override;
+  void DisabledPeriodic() override;
+  void DisabledInit() override;
+  void AutonomousInit() override;
 
  private:
   // Have it null by default so that if testing teleop it
   // doesn't have undefined behavior and potentially crash.
-  frc::Command* m_autonomousCommand = nullptr;
+  frc::Command* m_autonomousCommand = &auto_PathFollowingCommand;
   ExampleCommand m_defaultAuto;
   baseAutoCommand BaseAuto;
+  PathFollowingAutoCommand auto_PathFollowingCommand;
   frc::SendableChooser<frc::Command*> m_chooser;
 };

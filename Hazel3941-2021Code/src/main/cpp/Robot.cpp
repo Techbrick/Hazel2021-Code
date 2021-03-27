@@ -11,6 +11,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "PIDConstants.h"
 
+
 ExampleSubsystem Robot::m_subsystem;
 DriveSubsystem Robot::Drive;
 IndexSubsystem Robot::Indexer;
@@ -23,31 +24,16 @@ std::shared_ptr<NetworkTable> Robot::table;
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
   m_chooser.AddOption("Base Auto", &BaseAuto);
+  m_chooser.AddOption("Path Following", &auto_PathFollowingCommand);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   robotCompressor.SetClosedLoopControl(true);
   table = NetworkTable::GetTable("limelight");
-  //frc::SmartDashboard::PutNumber("VTrackP", ARM_ANGLE_P);
-  //frc::SmartDashboard::PutNumber("VTrackI", ARM_ANGLE_I);
-  //frc::SmartDashboard::PutNumber("VTrackD", ARM_ANGLE_D);
-  //frc::SmartDashboard::PutNumber("VTrackF", ARM_ANGLE_F);
-  //frc::SmartDashboard::PutNumber("TgtAngle", TARGETTILTANGLE);
 }
 
-/**
- * This function is called every robot packet, no matter the mode. Use
- * this for items like diagnostics that you want ran during disabled,
- * autonomous, teleoperated and test.
- *
- * <p> This runs after the mode specific periodic functions, but before
- * LiveWindow and SmartDashboard integrated updating.
- */
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  Drive.UpdatedOdometry();
+}
 
-/**
- * This function is called once each time the robot enters Disabled mode. You
- * can use it to reset any subsystem information you want to clear when the
- * robot is disabled.
- */
 void Robot::DisabledInit() {
   Intake.extended = false;
 }
@@ -75,7 +61,7 @@ void Robot::AutonomousInit() {
   // }
 
   m_autonomousCommand = m_chooser.GetSelected();
-
+  //m_autonomousCommand = &PathFollowingAutoCommand;
   if (m_autonomousCommand != nullptr) {
     m_autonomousCommand->Start();
   }
@@ -102,7 +88,9 @@ void Robot::TeleopInit() {
 
 void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
 
-void Robot::TestPeriodic() {}
+void Robot::TestPeriodic() {
+  Robot::Drive.TankDriveVolts((units::voltage::volt_t)6, (units::voltage::volt_t) -6); // Drives forward.
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }

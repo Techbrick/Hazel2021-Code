@@ -11,12 +11,13 @@
 
 baseAutoCommand::baseAutoCommand() {
   // Use Requires() here to declare subsystem dependencies
-  Requires(&Robot::m_subsystem);
+  Requires(&Robot::Drive);
 }
 
 // Called just before this Command runs the first time
 void baseAutoCommand::Initialize() {
   timer = 100;
+  Robot::Drive.ResetOdometryPose();
 }
 
 // Called repeatedly when this Command is scheduled to run

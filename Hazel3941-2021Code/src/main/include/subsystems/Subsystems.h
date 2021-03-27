@@ -11,9 +11,13 @@
 #include "commands/Commands.h"
 #include "ctre/Phoenix.h"
 #include "frc/drive/DifferentialDrive.h"
+#include "frc/kinematics/DifferentialDriveOdometry.h"
+#include "frc/geometry/Rotation2d.h"
+#include "AHRS.h"
 #include "frc/DigitalInput.h"
 #include "frc/Compressor.h"
 #include "frc/DoubleSolenoid.h"
+#include "RobotCharacteristics.h"
 #include "Objects.h"
 #include "RobotMap.h"
 
@@ -21,7 +25,7 @@ class ExampleSubsystem : public frc::Subsystem {
   public:
     ExampleSubsystem();
     void InitDefaultCommand() override;
-
+    
   private:
   // It's desirable that everything possible under private except
   // for methods that implement subsystem capabilities
@@ -31,6 +35,11 @@ class DriveSubsystem : public frc::Subsystem {
   public:
     DriveSubsystem();
     void InitDefaultCommand() override;
+    void UpdatedOdometry();
+    void ResetOdometryPose();
+    frc::DifferentialDriveWheelSpeeds GetWheelSpeeds();
+    void TankDriveVolts(units::volt_t left, units::volt_t right);
+    frc::Pose2d GetPose();
     // Remove WPI_ for motion magic or something
     WPI_TalonSRX RightController;
     WPI_VictorSPX RightFollower;
@@ -38,6 +47,9 @@ class DriveSubsystem : public frc::Subsystem {
     WPI_VictorSPX LeftFollower;
     frc::DifferentialDrive driveControl{LeftController, RightController};
     frc::DoubleSolenoid ShifterSolenoid {13, 0, 1};
+
+    AHRS navx{frc::SPI::Port::kMXP};
+    frc::DifferentialDriveOdometry odometry;
     
   private:
 
