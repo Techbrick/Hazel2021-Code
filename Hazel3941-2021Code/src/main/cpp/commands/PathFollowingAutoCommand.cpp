@@ -22,14 +22,15 @@ void PathFollowingAutoCommand::Initialize() {
 
   trajectoryConfig.SetKinematics(kDriveKinematics);
   trajectoryConfig.AddConstraint(autoVoltageConstraint);
+  trajectoryConfig.SetReversed(true);
 
   trajectory = frc::TrajectoryGenerator::GenerateTrajectory(
     frc::Pose2d(0_m, 0_m, 0_deg),
     {
-      frc::Translation2d(0.5_m, 0_m),
-      frc::Translation2d(1_m, 0.5_m),
+      frc::Translation2d(1_m, 0_m),
+      frc::Translation2d(2_m, 0.75_m),
     },
-    frc::Pose2d(1_m, 1_m, 90_deg),
+    frc::Pose2d(2_m, 1.5_m, 90_deg),
     trajectoryConfig
   );
 
