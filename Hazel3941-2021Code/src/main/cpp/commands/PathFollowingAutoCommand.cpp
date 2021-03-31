@@ -26,13 +26,8 @@ void PathFollowingAutoCommand::Initialize() {
   /*trajectory = frc::TrajectoryGenerator::GenerateTrajectory(
     // Start at the origin facing the +X direction
       frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
-      // Pass through these two interior waypoints, making an 's' curve path
       {
-        // Caitlyn's U turn
-        //frc::Translation2d(1.0_m, 0.0_m),
-        //frc::Translation2d(1.5_m, 0.5_m),
-        //frc::Translation2d(1.0_m, 1_m)
-        // Rich's Slalom
+        // Slalom
         //frc::Translation2d(0_m, 0_m),
         frc::Translation2d(0.457317073170732_m, 0_m),
         frc::Translation2d(0.76219512195122_m, 0.152439024390244_m),
@@ -102,46 +97,42 @@ void PathFollowingAutoCommand::Initialize() {
 
   trajectory = frc::TrajectoryGenerator::GenerateTrajectory(
     // Start at the origin facing the +X direction
-      // Pass through these two interior waypoints, making an 's' curve path
+    // Compressed in Y Barrel Run
       frc::Pose2d(0_m, 0_m, 0_deg),
       {
-        frc::Translation2d(3.03931222542039_m, 0.113619148613847_m),
-        frc::Translation2d(3.61450916527799_m, -0.262744281169519_m),
-        frc::Translation2d(3.85594985608241_m, -1.03677473110135_m),
-        frc::Translation2d(3.3446636873201_m, -1.59776927738221_m),
-        frc::Translation2d(2.93989547038327_m, -1.64037645811241_m),
-        frc::Translation2d(2.39310331767914_m, -1.32792379942433_m),
-        frc::Translation2d(2.15166262687472_m, -0.781131646720194_m),
-        frc::Translation2d(2.24397818512347_m, -0.369262232995001_m),
-        frc::Translation2d(2.74106196030904_m, -0.085214361460384_m),
-        frc::Translation2d(3.23814573549462_m, 0.0923155582487502_m),
-        frc::Translation2d(4.01927738221482_m, 0.156226329344039_m),
-        frc::Translation2d(4.83591501287684_m, 0.163327526132404_m),
-        frc::Translation2d(5.34720118163915_m, 0.106517951825481_m),
-        frc::Translation2d(5.95790410543857_m, 0.418970610513559_m),
-        frc::Translation2d(6.01471367974549_m, 0.944459172852599_m),
-        frc::Translation2d(5.84428495682472_m, 1.26401302832904_m),
-        frc::Translation2d(5.42531434631116_m, 1.4983525223451_m),
-        frc::Translation2d(4.88562339039539_m, 1.44154294803818_m),
-        frc::Translation2d(4.53766474776549_m, 0.852143614603848_m),
-        frc::Translation2d(4.77910543856991_m, 0.333756249053174_m),
-        frc::Translation2d(5.11996288441145_m, -0.241440690804424_m),
-        frc::Translation2d(5.92239812149674_m, -0.916054385699136_m),
-        frc::Translation2d(6.34846992879867_m, -1.19300106044539_m),
-        frc::Translation2d(6.81004772004242_m, -1.41313816088471_m),
-        frc::Translation2d(7.4491554309953_m, -1.46284653840327_m),
-        frc::Translation2d(7.79001287683684_m, -1.07228071504318_m),
-        frc::Translation2d(7.73320330252992_m, -0.596500530222693_m),
-        frc::Translation2d(7.41364944705348_m, 0_m),
-        frc::Translation2d(6.84555370398424_m, 0.191732313285866_m),
-        frc::Translation2d(6.12123163157097_m, 0.241440690804424_m),
-        frc::Translation2d(5.0276473261627_m, 0.269845477957885_m),
-        frc::Translation2d(3.47248522951068_m, 0.603601727011059_m),
-        frc::Translation2d(2.20847220118164_m, 0.752726859566732_m),
-        frc::Translation2d(1.69718603241933_m, 0.340857445841539_m)
+frc::Translation2d(3.61450916527799_m, -0.262744281169519_m),
+frc::Translation2d(3.85594985608241_m, -1.03677473110135_m),
+frc::Translation2d(3.3446636873201_m, -1.5_m),
+frc::Translation2d(2.39310331767914_m, -1.32792379942433_m),
+frc::Translation2d(2.15166262687472_m, -0.781131646720194_m),
+frc::Translation2d(2.24397818512347_m, -0.369262232995001_m),
+frc::Translation2d(2.74106196030904_m, -0.085214361460384_m),
+frc::Translation2d(3.23814573549462_m, 0.0923155582487502_m),
+frc::Translation2d(4.01927738221482_m, 0.156226329344039_m),
+frc::Translation2d(4.83591501287684_m, -0.336672473867596_m),
+frc::Translation2d(5.34720118163915_m, -0.393482048174519_m),
+frc::Translation2d(5.95790410543857_m, -0.0810293894864412_m),
+frc::Translation2d(6.01471367974549_m, 0.444459172852599_m),
+frc::Translation2d(5.84428495682472_m, 0.764013028329041_m),
+frc::Translation2d(5.42531434631116_m, 0.998352522345099_m),
+frc::Translation2d(4.78562339039539_m, 0.941542948038176_m),
+frc::Translation2d(4.25_m, 0.352143614603848_m),
+frc::Translation2d(4.5_m, -0.2_m),
+frc::Translation2d(5.92239812149674_m, -0.916054385699136_m),
+frc::Translation2d(6.34846992879867_m, -1.19300106044539_m),
+frc::Translation2d(6.81004772004242_m, -1.41313816088471_m),
+frc::Translation2d(7.4491554309953_m, -1.46284653840327_m),
+frc::Translation2d(7.79001287683684_m, -1.07228071504318_m),
+frc::Translation2d(7.73320330252992_m, -0.596500530222693_m),
+frc::Translation2d(7.41364944705348_m, 0_m),
+frc::Translation2d(6.84555370398424_m, 0.191732313285866_m),
+frc::Translation2d(6.12123163157097_m, 0_m),
+frc::Translation2d(5.3_m, -0.5_m),
+frc::Translation2d(3.47248522951068_m, 0_m),
+frc::Translation2d(2.20847220118164_m, 0_m),
+frc::Translation2d(1.69718603241933_m, 0_m)
       },
       frc::Pose2d(0.198833510074231_m, -0.0994167550371159_m, 180_deg),
-      // End 3 meters straight ahead of where we started, facing forward
       trajectoryConfig
   );
 
