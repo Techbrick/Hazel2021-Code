@@ -14,7 +14,6 @@ ReconfigureCommand::ReconfigureCommand() {
     // Use Requires() here to declare subsystem dependencies
     Requires(&Robot::Shooter);
     Requires(&Robot::Drive);
-    Requires(&Robot::Indexer);
     Requires(&Robot::Intake);
     //frc::SmartDashboard::PutNumber("VTrack P", ARM_ANGLE_P);
     //frc::SmartDashboard::PutNumber("VTrack I", ARM_ANGLE_I);

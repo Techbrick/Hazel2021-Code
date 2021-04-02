@@ -14,7 +14,6 @@
 
 ExampleSubsystem Robot::m_subsystem;
 DriveSubsystem Robot::Drive;
-IndexSubsystem Robot::Indexer;
 IntakeSubsystem Robot::Intake;
 ShooterSubsystem Robot::Shooter;
 frc::Compressor Robot::robotCompressor{13};
@@ -79,10 +78,8 @@ void Robot::TeleopInit() {
     m_autonomousCommand->Cancel();
     m_autonomousCommand = nullptr;
   }
-  Indexer.balls.clear();
-  Intake.manualEnabled = false;
   for(int i = 0; i < 6; i++){
-    Indexer.lastStates[i] = true;
+    Intake.lastStates[i] = true;
   }
 }
 

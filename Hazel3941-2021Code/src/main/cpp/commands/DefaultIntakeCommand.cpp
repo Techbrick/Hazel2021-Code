@@ -13,6 +13,7 @@
 DefaultIntakeCommand::DefaultIntakeCommand() {
   // Use Requires() here to declare subsystem dependencies
   Requires(&Robot::Intake);
+  
 }
 
 // Called just before this Command runs the first time
@@ -26,35 +27,81 @@ void DefaultIntakeCommand::Execute() {
     Robot::Intake.manualEnabled = true;
   }*/
 
-  if(!Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
-    if(Robot::oi.DriverController->GetRawButton(DRIVE_CONTROLLER_ENABLE_INTAKEINDEXING_BUTTON)){
-      if(!Robot::Intake.buttonLastA){
-        Robot::Intake.manualEnabled = !Robot::Intake.manualEnabled;
-      }
-      Robot::Intake.buttonLastA = true;
-    }else{
-      Robot::Intake.buttonLastA = false;
+  Robot::Intake.lastStates[0] = Robot::Intake.distanceA.Get();
+	Robot::Intake.lastStates[1] = Robot::Intake.distanceB.Get();
+  Robot::Intake.lastStates[2] = Robot::Intake.beltA.Get();
+	Robot::Intake.lastStates[3] = Robot::Intake.beltB.Get();
+  Robot::Intake.lastStates[4] = Robot::Intake.beltC.Get();
+	Robot::Intake.lastStates[5] = Robot::Intake.beltD.Get();
+
+  if(Robot::oi.DriverController->GetRawButton(DRIVE_CONTROLLER_ENABLE_INTAKEINDEXING_BUTTON)){
+    if(!Robot::Intake.buttonLastA){
+      // on flip of button
+      Robot::Intake.autoIntake = !Robot::Intake.autoIntake;
+      //Robot::Intake.manualEnabled = !Robot::Intake.manualEnabled;
     }
+    Robot::Intake.buttonLastA = true;
+  }else{
+    Robot::Intake.buttonLastA = false;
+  }
+
+  if(Robot::oi.DriverController->GetRawButton(DRIVE_CONTROLLER_EXTEND_RETRACT_INTAKE_BUTTON)){
+    if(!Robot::Intake.buttonLastB){
+      // on flip of button
+      Robot::Intake.extended = !Robot::Intake.extended;
+    }
+    Robot::Intake.buttonLastB = true;
+  }else{
+    Robot::Intake.buttonLastB = false;
+  }
+
+  if(!Robot::Intake.extended){
+    Robot::Intake.ExtenderSolenoidA.Set(frc::DoubleSolenoid::Value::kForward);
+    Robot::Intake.ExtenderSolenoidB.Set(frc::DoubleSolenoid::Value::kForward);
+  }else{
+    Robot::Intake.ExtenderSolenoidA.Set(frc::DoubleSolenoid::Value::kReverse);
+    Robot::Intake.ExtenderSolenoidB.Set(frc::DoubleSolenoid::Value::kReverse);
+  }
+
+  if(Robot::Intake.indexWheelOn){
+    if(Robot::Intake.backDriveIndex){
+      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.25);
+    }else{
+      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.25);
+    }
+    
+  }else{
+    Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
+  }
+
+  if(Robot::Intake.beltOn){
+    if(Robot::Intake.backDriveBelt){
+      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.25);
+    }else{
+      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.25);
+    }
+  }else{
+    Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
+  }
+
+  if(Robot::Intake.intakeWheelOn){
+    if(Robot::Intake.expell){
+      Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.5);
+    }else{
+      Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.5);
+    }
+  }else{
+    Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
+  }
+
+  /*if(!Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
     if(Robot::Intake.manualEnabled && Robot::Intake.indexEnabled){
       Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.5);
     }else{
       Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
     }
-    if(Robot::oi.DriverController->GetRawButton(DRIVE_CONTROLLER_EXTEND_RETRACT_INTAKE_BUTTON)){
-      if(!Robot::Intake.buttonLastB){
-        Robot::Intake.extended = !Robot::Intake.extended;
-      }
-      Robot::Intake.buttonLastB = true;
-    }else{
-      Robot::Intake.buttonLastB = false;
-    }
-    if(!Robot::Intake.extended){
-      Robot::Intake.ExtenderSolenoidA.Set(frc::DoubleSolenoid::Value::kForward);
-      Robot::Intake.ExtenderSolenoidB.Set(frc::DoubleSolenoid::Value::kForward);
-    }else{
-      Robot::Intake.ExtenderSolenoidA.Set(frc::DoubleSolenoid::Value::kReverse);
-      Robot::Intake.ExtenderSolenoidB.Set(frc::DoubleSolenoid::Value::kReverse);
-    }
+    
+    
   }else{
     // operator is overriding the mechanism
     if(Robot::oi.OperatorController->GetRawButton(OPERATOR_INTAKE_FEED_ROBOT_BUTTON)){
@@ -64,7 +111,7 @@ void DefaultIntakeCommand::Execute() {
     }else{
       Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
     }
-  }
+  }*/
 }
 
 // Make this return true when this Command no longer needs to run execute()

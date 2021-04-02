@@ -55,12 +55,11 @@ class DriveSubsystem : public frc::Subsystem {
 
 };
 
-class IndexSubsystem : public frc::Subsystem {
+class IntakeSubsystem : public frc::Subsystem {
   public:
-    IndexSubsystem();
+    IntakeSubsystem();
     void InitDefaultCommand() override;
-    bool beltOn = false;
-    bool indexWheelOn = false;
+    
     bool lastStates[6] = {true, true, true, true, true, true};
     TalonSRX indexWheelMotor;
     TalonSRX beltMotor;
@@ -70,25 +69,21 @@ class IndexSubsystem : public frc::Subsystem {
     frc::DigitalInput beltB{DIO_INDEXER_3};
     frc::DigitalInput beltC{DIO_INDEXER_4};
     frc::DigitalInput beltD{DIO_INDEXER_5};
-    std::vector<Ball> balls;
-    bool drivenManually = false;
-
-  private:
-
-};
-
-class IntakeSubsystem : public frc::Subsystem {
-  public:
-    IntakeSubsystem();
-    void InitDefaultCommand() override;
     TalonSRX intakeMotor;
     frc::DoubleSolenoid ExtenderSolenoidA {13, 2, 3};
     frc::DoubleSolenoid ExtenderSolenoidB {13, 6, 7};
-    bool indexEnabled = true;
-    bool manualEnabled = false;
-    bool buttonLastA = false;
-    bool buttonLastB = false;
+
+    bool buttonLastA = false; // extension
+    bool buttonLastB = false; // automatic intake
+
+    bool expell = false;
+    bool backDriveBelt = false;
+    bool backDriveIndex = false;
+
     bool extended = false;
+    bool beltOn = false;
+    bool indexWheelOn = false;
+    bool intakeWheelOn = false;
   private:
 
 };
