@@ -21,20 +21,8 @@ void DefaultIntakeCommand::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void DefaultIntakeCommand::Execute() {
-  /*if(Robot::oi.DriverController->GetRawButton(INTAKE_OFF_BUTTON)){
-    Robot::Intake.manualEnabled = false;
-  }else if(Robot::oi.DriverController->GetRawButton(INTAKE_ON_BUTTON)){
-    Robot::Intake.manualEnabled = true;
-  }*/
 
-  Robot::Intake.lastStates[0] = Robot::Intake.distanceA.Get();
-	Robot::Intake.lastStates[1] = Robot::Intake.distanceB.Get();
-  Robot::Intake.lastStates[2] = Robot::Intake.beltA.Get();
-	Robot::Intake.lastStates[3] = Robot::Intake.beltB.Get();
-  Robot::Intake.lastStates[4] = Robot::Intake.beltC.Get();
-	Robot::Intake.lastStates[5] = Robot::Intake.beltD.Get();
-
-  if(Robot::oi.DriverController->GetRawButton(DRIVE_CONTROLLER_ENABLE_INTAKEINDEXING_BUTTON)){
+  if(Robot::oi.DriverController->GetRawButton(DRIVE_TOGGLE_AUTO_INTAKE_BUTTON)){
     if(!Robot::Intake.buttonLastA){
       // on flip of button
       Robot::Intake.autoIntake = !Robot::Intake.autoIntake;
@@ -54,6 +42,29 @@ void DefaultIntakeCommand::Execute() {
   }else{
     Robot::Intake.buttonLastB = false;
   }
+
+
+  if(Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
+    Robot::Intake.beltOn = false;
+    Robot::Intake.intakeWheelOn = false;
+    Robot::Intake.indexWheelOn = false;
+
+  }else{
+    if(Robot::Intake.autoIntake){
+
+      // <AUTO>
+      
+      
+
+      // </AUTO>
+
+    }else{
+      Robot::Intake.beltOn = false;
+      Robot::Intake.intakeWheelOn = false;
+      Robot::Intake.indexWheelOn = false;
+    }
+  }
+
 
   if(!Robot::Intake.extended){
     Robot::Intake.ExtenderSolenoidA.Set(frc::DoubleSolenoid::Value::kForward);
@@ -93,6 +104,13 @@ void DefaultIntakeCommand::Execute() {
   }else{
     Robot::Intake.intakeMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
   }
+
+  Robot::Intake.lastStates[0] = Robot::Intake.distanceA.Get();
+	Robot::Intake.lastStates[1] = Robot::Intake.distanceB.Get();
+  Robot::Intake.lastStates[2] = Robot::Intake.beltA.Get();
+	Robot::Intake.lastStates[3] = Robot::Intake.beltB.Get();
+  Robot::Intake.lastStates[4] = Robot::Intake.beltC.Get();
+	Robot::Intake.lastStates[5] = Robot::Intake.beltD.Get();
 
   /*if(!Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
     if(Robot::Intake.manualEnabled && Robot::Intake.indexEnabled){

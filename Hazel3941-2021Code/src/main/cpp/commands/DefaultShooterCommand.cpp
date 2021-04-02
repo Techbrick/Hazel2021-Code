@@ -44,13 +44,13 @@ void DefaultShooterCommand::Execute() {
     }else{
       Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
     }
-    if(Robot::oi.DriverController->GetRawButton(DRIVE_ARM_BUTTON)){
+    /*if(Robot::oi.DriverController->GetRawButton(DRIVE_ARM_BUTTON)){
       Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, 1.0);
       Robot::Shooter.right.Set(motorcontrol::ControlMode::PercentOutput, 1.0);
     }else{
       Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, 0.0);
       Robot::Shooter.right.Set(motorcontrol::ControlMode::PercentOutput, 0.0);
-    }
+    }*/
     
   } else {
     // operator is taking control manually

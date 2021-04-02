@@ -73,8 +73,10 @@ class IntakeSubsystem : public frc::Subsystem {
     frc::DoubleSolenoid ExtenderSolenoidA {13, 2, 3};
     frc::DoubleSolenoid ExtenderSolenoidB {13, 6, 7};
 
-    bool buttonLastA = false; // extension
-    bool buttonLastB = false; // automatic intake
+    bool buttonLastA = false; // automatic intake
+    bool buttonLastB = false; // extension
+
+    bool autoIntake = false;
 
     bool expell = false;
     bool backDriveBelt = false;
