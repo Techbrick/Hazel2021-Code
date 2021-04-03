@@ -7,10 +7,14 @@
 
 #pragma once
 
+#include <vector>
 #include <frc/commands/Subsystem.h>
+#include <frc/smartdashboard/SendableChooser.h>
 #include "commands/Commands.h"
 #include "ctre/Phoenix.h"
 #include "frc/drive/DifferentialDrive.h"
+#include "frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h"
+#include "frc/trajectory/TrajectoryGenerator.h"
 #include "frc/kinematics/DifferentialDriveOdometry.h"
 #include "frc/geometry/Rotation2d.h"
 #include "AHRS.h"
@@ -105,5 +109,13 @@ class ShooterSubsystem : public frc::Subsystem {
     //frc::DigitalInput upperLim{DIO_UPPER_LIM};
     frc::DigitalInput lowerLim{DIO_LOWER_LIM};
     bool drivenManually = false;
+  private: 
+};
+
+class TrajectoryTimingSubsystem : public frc::Subsystem {
+  public:
+    TrajectoryTimingSubsystem();
+    frc::DifferentialDriveKinematics kDriveKinematics = frc::DifferentialDriveKinematics(kTrackwidth);
+    frc::SendableChooser<std::vector<frc::Trajectory>> pathChooser;
   private: 
 };
