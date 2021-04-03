@@ -45,23 +45,36 @@ void DefaultIntakeCommand::Execute() {
 
 
   if(Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON)){
-    Robot::Intake.beltOn = false;
-    Robot::Intake.intakeWheelOn = false;
-    Robot::Intake.indexWheelOn = false;
+    Robot::Intake.expell = Robot::oi.OperatorController->GetRawButton(OPERATOR_INTAKE_REJECT_BUTTON);
+    Robot::Intake.backDriveBelt = Robot::oi.OperatorController->GetRawButton(OPERATOR_INDEXER_FEED_REVERSE_BUTTON);
+    Robot::Intake.backDriveIndex = Robot::Intake.backDriveBelt;
+    Robot::Intake.beltOn = Robot::Intake.backDriveBelt || Robot::oi.OperatorController->GetRawButton(OPERATOR_INDEXER_FEED_FORWARD_BUTTON);
+    Robot::Intake.intakeWheelOn = Robot::Intake.expell || Robot::oi.OperatorController->GetRawButton(OPERATOR_INTAKE_FEED_ROBOT_BUTTON);
+    Robot::Intake.indexWheelOn = Robot::Intake.beltOn;
 
   }else{
     if(Robot::Intake.autoIntake){
 
       // <AUTO>
       
-      
+      Robot::Intake.beltOn = false;
+      Robot::Intake.intakeWheelOn = false;
+      Robot::Intake.indexWheelOn = false;
+      Robot::Intake.expell = false;
+      Robot::Intake.backDriveBelt = false;
+      Robot::Intake.backDriveIndex = false;
 
       // </AUTO>
 
     }else{
+
       Robot::Intake.beltOn = false;
       Robot::Intake.intakeWheelOn = false;
       Robot::Intake.indexWheelOn = false;
+      Robot::Intake.expell = false;
+      Robot::Intake.backDriveBelt = false;
+      Robot::Intake.backDriveIndex = false;
+
     }
   }
 
@@ -76,9 +89,9 @@ void DefaultIntakeCommand::Execute() {
 
   if(Robot::Intake.indexWheelOn){
     if(Robot::Intake.backDriveIndex){
-      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.25);
+      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.45);
     }else{
-      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.25);
+      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.45);
     }
     
   }else{
@@ -87,9 +100,9 @@ void DefaultIntakeCommand::Execute() {
 
   if(Robot::Intake.beltOn){
     if(Robot::Intake.backDriveBelt){
-      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.25);
+      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.45);
     }else{
-      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.25);
+      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.45);
     }
   }else{
     Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);

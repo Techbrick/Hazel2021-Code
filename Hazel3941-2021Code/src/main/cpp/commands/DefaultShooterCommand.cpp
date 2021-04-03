@@ -25,18 +25,15 @@ void DefaultShooterCommand::Execute() {
   Robot::Shooter.pigeon.GetYawPitchRoll(angles);
 
   //frc::SmartDashboard::PutNumber("Pigeon Yaw", angles[0]);
-  frc::SmartDashboard::PutNumber("Pigeon Pitch", angles[1]);
+  //frc::SmartDashboard::PutNumber("Pigeon Pitch", angles[1]);
   //frc::SmartDashboard::PutNumber("Pigeon Roll", angles[2]);
 
   bool axis_locked = Robot::oi.OperatorController->GetRawButton(OPERATOR_LOCKED_AXIS_OVERRIDE);
   bool operator_override = Robot::oi.OperatorController->GetRawButton(MANUAL_OPERATOR_OVERRIDE_BUTTON) || axis_locked;
 
   if(!operator_override){
-    if(Robot::Shooter.drivenManually == true){
-      Robot::Shooter.drivenManually = false;
-      Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);
-      Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput,0);
-    }
+    Robot::Shooter.left.Set(motorcontrol::ControlMode::PercentOutput, 0);
+    Robot::Shooter.right.Set(motorcontrol::ControlMode::PercentOutput, 0);
     if(/*!Robot::Shooter.lowerLim.Get() && */Robot::oi.DriverController->GetRawButton(DRIVE_CONTROLLER_ROLL_SHOOTER_BACKWARD)){
       Robot::Shooter.armMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.2);
     }else if( lowerlimstatus && Robot::oi.DriverController->GetRawButton(DRIVE_CONTROLLER_ROLL_SHOOTER_FORWARD)){

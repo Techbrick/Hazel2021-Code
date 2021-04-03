@@ -40,16 +40,6 @@ class DefaultDriveCommand : public frc::Command {
   void Interrupted() override;
 };
 
-class DefaultIndexCommand : public frc::Command {
- public:
-  DefaultIndexCommand();
-  void Initialize() override;
-  void Execute() override;
-  bool IsFinished() override;
-  void End() override;
-  void Interrupted() override;
-};
-
 class DefaultIntakeCommand : public frc::Command {
  public:
   DefaultIntakeCommand();
@@ -58,6 +48,7 @@ class DefaultIntakeCommand : public frc::Command {
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+  int state;
 };
 
 class DefaultShooterCommand : public frc::Command {

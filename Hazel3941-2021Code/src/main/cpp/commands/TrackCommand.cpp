@@ -45,7 +45,7 @@ void trackCommand::Execute() {
   if(abs(rPID) > cap){
     rPID = (float)((rPID > 0) - (rPID < 0)) * cap;
   }
-  Robot::Drive.driveControl.ArcadeDrive(driverJoyY, -rPID, false);
+  Robot::Drive.driveControl.ArcadeDrive(-driverJoyY, rPID, false);
 
   ty = Robot::table->GetEntry("ty").GetDouble(0.0);
   
