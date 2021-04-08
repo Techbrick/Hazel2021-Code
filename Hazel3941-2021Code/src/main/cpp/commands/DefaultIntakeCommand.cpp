@@ -22,6 +22,7 @@ void DefaultIntakeCommand::Initialize() {}
 // Called repeatedly when this Command is scheduled to run
 void DefaultIntakeCommand::Execute() {
 
+  float speedFactor = .75;
   if(Robot::oi.DriverController->GetRawButton(DRIVE_TOGGLE_AUTO_INTAKE_BUTTON)){
     if(!Robot::Intake.buttonLastA){
       // on flip of button
@@ -57,12 +58,43 @@ void DefaultIntakeCommand::Execute() {
 
       // <AUTO>
       
-      Robot::Intake.beltOn = false;
-      Robot::Intake.intakeWheelOn = false;
-      Robot::Intake.indexWheelOn = false;
-      Robot::Intake.expell = false;
-      Robot::Intake.backDriveBelt = false;
-      Robot::Intake.backDriveIndex = false;
+      Robot::Intake.extended = true;
+
+      switch(state){
+        case 0:
+          Robot::Intake.beltOn = false;
+          Robot::Intake.intakeWheelOn = true;
+          Robot::Intake.indexWheelOn = false;
+          Robot::Intake.expell = false;
+          Robot::Intake.backDriveBelt = false;
+          Robot::Intake.backDriveIndex = false;
+          if(!Robot::Intake.distanceA.Get() && !Robot::Intake.distanceB.Get()){
+            state++;
+          }
+          break;
+        case 1:
+          Robot::Intake.beltOn = true;
+          Robot::Intake.intakeWheelOn = true;
+          Robot::Intake.indexWheelOn = false;
+          Robot::Intake.expell = false;
+          Robot::Intake.backDriveBelt = false;
+          Robot::Intake.backDriveIndex = false;
+          if(!Robot::Intake.beltA.Get()){
+            state++;
+          }
+          break;
+        case 2:
+          Robot::Intake.beltOn = true;
+          Robot::Intake.intakeWheelOn = true;
+          Robot::Intake.indexWheelOn = true;
+          Robot::Intake.expell = true;
+          Robot::Intake.backDriveBelt = false;
+          Robot::Intake.backDriveIndex = false;
+          if(Robot::Intake.beltA.Get()){
+            state = 0;
+          }
+          break;
+      }
 
       // </AUTO>
 
@@ -102,7 +134,7 @@ void DefaultIntakeCommand::Execute() {
     if(Robot::Intake.backDriveBelt){
       Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.45);
     }else{
-      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.45);
+      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, speedFactor);
     }
   }else{
     Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, 0);

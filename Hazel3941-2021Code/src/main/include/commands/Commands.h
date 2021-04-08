@@ -59,6 +59,7 @@ class DefaultShooterCommand : public frc::Command {
   bool IsFinished() override;
   void End() override;
   void Interrupted() override;
+  
 };
 
 class ZeroShooterPigeonCommand : public frc::Command {
