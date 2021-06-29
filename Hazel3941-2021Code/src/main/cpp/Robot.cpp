@@ -16,6 +16,7 @@ ExampleSubsystem Robot::m_subsystem;
 DriveSubsystem Robot::Drive;
 IntakeSubsystem Robot::Intake;
 ShooterSubsystem Robot::Shooter;
+TrajectoryTimingSubsystem Robot::TrajectoryTiming;
 frc::Compressor Robot::robotCompressor{13};
 OI Robot::oi;
 std::shared_ptr<NetworkTable> Robot::table;
