@@ -17,7 +17,9 @@ DefaultIntakeCommand::DefaultIntakeCommand() {
 }
 
 // Called just before this Command runs the first time
-void DefaultIntakeCommand::Initialize() {}
+void DefaultIntakeCommand::Initialize() {
+  state = 0;
+}
 
 // Called repeatedly when this Command is scheduled to run
 void DefaultIntakeCommand::Execute() {
@@ -33,6 +35,8 @@ void DefaultIntakeCommand::Execute() {
   }else{
     Robot::Intake.buttonLastA = false;
   }
+
+  frc::SmartDashboard::PutBoolean("Auto Intake Enable", Robot::Intake.autoIntake);
 
   if(Robot::oi.DriverController->GetRawButton(DRIVE_CONTROLLER_EXTEND_RETRACT_INTAKE_BUTTON)){
     if(!Robot::Intake.buttonLastB){
@@ -52,14 +56,14 @@ void DefaultIntakeCommand::Execute() {
     Robot::Intake.beltOn = Robot::Intake.backDriveBelt || Robot::oi.OperatorController->GetRawButton(OPERATOR_INDEXER_FEED_FORWARD_BUTTON);
     Robot::Intake.intakeWheelOn = Robot::Intake.expell || Robot::oi.OperatorController->GetRawButton(OPERATOR_INTAKE_FEED_ROBOT_BUTTON);
     Robot::Intake.indexWheelOn = Robot::Intake.beltOn;
-
+    frc::SmartDashboard::PutNumber("Auto Intake State", -2);
   }else{
+    frc::SmartDashboard::PutNumber("Auto Intake State", -1);
     if(Robot::Intake.autoIntake){
 
       // <AUTO>
-      
       Robot::Intake.extended = true;
-
+      frc::SmartDashboard::PutNumber("Auto Intake State", state);
       switch(state){
         case 0:
           Robot::Intake.beltOn = false;
@@ -121,9 +125,9 @@ void DefaultIntakeCommand::Execute() {
 
   if(Robot::Intake.indexWheelOn){
     if(Robot::Intake.backDriveIndex){
-      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.45);
+      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, -speedFactor);
     }else{
-      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, 0.45);
+      Robot::Intake.indexWheelMotor.Set(motorcontrol::ControlMode::PercentOutput, speedFactor);
     }
     
   }else{
@@ -132,7 +136,7 @@ void DefaultIntakeCommand::Execute() {
 
   if(Robot::Intake.beltOn){
     if(Robot::Intake.backDriveBelt){
-      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, -0.45);
+      Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, -speedFactor);
     }else{
       Robot::Intake.beltMotor.Set(motorcontrol::ControlMode::PercentOutput, speedFactor);
     }
