@@ -50,7 +50,6 @@ class DriveSubsystem : public frc::Subsystem {
     WPI_TalonSRX LeftController;
     WPI_VictorSPX LeftFollower;
     frc::DifferentialDrive driveControl{LeftController, RightController};
-    frc::DoubleSolenoid ShifterSolenoid {13, 0, 1};
 
     AHRS navx{frc::SPI::Port::kMXP};
     frc::DifferentialDriveOdometry odometry;
