@@ -54,13 +54,6 @@ void DefaultDriveCommand::Execute() {
         joyY = 0;
     }*/
     Robot::Drive.driveControl.ArcadeDrive(joyY, joyX, false);
-
-
-    if(!(Robot::oi.DriverController->GetRawAxis(DRIVE_SHIFT_AXIS) > 0.75)){
-        Robot::Drive.ShifterSolenoid.Set(frc::DoubleSolenoid::Value::kForward);
-    }else{
-        Robot::Drive.ShifterSolenoid.Set(frc::DoubleSolenoid::Value::kReverse);
-    }
 }
 
 // Make this return true when this Command no longer needs to run execute()
