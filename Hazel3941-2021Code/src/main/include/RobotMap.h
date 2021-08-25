@@ -38,7 +38,9 @@ static constexpr int LEFT_DRIVE_FOLLOWER_ID     = 2;
 
 static constexpr int INDEXER_ID                 = 3;
 
-static constexpr int CLIMB_ID                   = 4;
+//static constexpr int CLIMB_ID                   = 4; // from legacy climb subsystem; left for future reference
+
+static constexpr int WINCH_ID                   = 4;
 
 static constexpr int INTAKE_ID                  = 5;
 
@@ -46,7 +48,7 @@ static constexpr int RIGHT_DRIVE_CONTROLLER_ID  = 6;
 
 static constexpr int RIGHT_DRIVE_FOLLOWER_ID    = 7;
 
-static constexpr int LIFT_ID                    = 8;
+//static constexpr int LIFT_ID                    = 8; // from legacy climb subsystem; left for future reference
 
 static constexpr int ARM_ID                     = 9;
 
@@ -135,14 +137,17 @@ static constexpr int OPERATOR_JOYSTICK_INNERRING_MIDDLE = 10;
 static constexpr int OPERATOR_ZERO_BUTTON = OPERATOR_JOYSTICK_INNERRING_MIDDLE;
 
 static constexpr int OPERATOR_JOYSTICK_INNERRING_BOTTOM = 12;
+static constexpr int OPERATOR_RELEASE_LIFT_LATCH_BUTTON = OPERATOR_JOYSTICK_INNERRING_BOTTOM;
 
 static constexpr int OPERATOR_JOYSTICK_OUTERRING_TOP = 7;
 static constexpr int OPERATOR_LOCKED_AXIS_OVERRIDE = OPERATOR_JOYSTICK_OUTERRING_TOP;
 
 static constexpr int OPERATOR_JOYSTICK_OUTERRING_MIDDLE = 9;
+static constexpr int OPERATOR_RECONFIG_BUTTON = OPERATOR_JOYSTICK_OUTERRING_MIDDLE;
 
 static constexpr int OPERATOR_JOYSTICK_OUTERRING_BOTTOM = 11;
-static constexpr int OPERATOR_RECONFIG_BUTTON = OPERATOR_JOYSTICK_OUTERRING_BOTTOM;
+static constexpr int OPERATOR_DRIVE_WINCH_BUTTON = OPERATOR_JOYSTICK_OUTERRING_BOTTOM;
+
 
 // Operator Controller Mappings </>
 
@@ -171,6 +176,14 @@ static constexpr int DIO_UPPER_LIM = 8;
 static constexpr int DIO_LOWER_LIM = 9;
 
 // DIO Mappings </>
+
+
+
+// RIO PWM Mappings
+
+static constexpr int LATCH_SERVO_PWM_PIN = 0;
+
+// RIO PWM Mappings </>
 
 
 

@@ -20,6 +20,16 @@ class ExampleCommand : public frc::Command {
   void Interrupted() override;
 };
 
+class DefaultLiftCommand : public frc::Command {
+ public:
+  DefaultLiftCommand();
+  void Initialize() override;
+  void Execute() override;
+  bool IsFinished() override;
+  void End() override;
+  void Interrupted() override;
+};
+
 class ReconfigureCommand : public frc::Command {
  public:
   ReconfigureCommand();

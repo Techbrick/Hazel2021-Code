@@ -20,6 +20,7 @@
 class Robot : public frc::TimedRobot {
  public:
   static ExampleSubsystem m_subsystem;
+  static LiftSubsystem Lift;
   static DriveSubsystem Drive;
   static IntakeSubsystem Intake;
   static ShooterSubsystem Shooter;

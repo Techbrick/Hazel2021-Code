@@ -17,6 +17,7 @@
 #include "frc/trajectory/TrajectoryGenerator.h"
 #include "frc/kinematics/DifferentialDriveOdometry.h"
 #include "frc/geometry/Rotation2d.h"
+#include "frc/Servo.h"
 #include "AHRS.h"
 #include "frc/DigitalInput.h"
 #include "frc/Compressor.h"
@@ -114,4 +115,12 @@ class TrajectoryTimingSubsystem : public frc::Subsystem {
     frc::DifferentialDriveKinematics kDriveKinematics = frc::DifferentialDriveKinematics(kTrackwidth);
     frc::SendableChooser<std::vector<frc::Trajectory>> pathChooser;
   private: 
+};
+
+class LiftSubsystem : public frc::Subsystem {
+  public:
+    LiftSubsystem();
+    void InitDefaultCommand() override;
+    WPI_TalonSRX winchMotor;
+    frc::Servo latchServo {LATCH_SERVO_PWM_PIN};
 };
